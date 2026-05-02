@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Portfolio | Game Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════════ */
+:root {
+  --bg:       #0c0c0c;
+  --card:     #181818;
+  --border:   #252525;
+  --muted:    #2a2a2a;
+  --fg:       #e8e8e8;
+  --dim:      #a7a7a7;
+  --orange:   #FF8C00;
+  --blue:     #12B5D0;
+  --green:    #22c55e;
+  --red:      #ef4444;
+  --radius:   12px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.65;
+  overflow-x: hidden;
+}
+h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; color: #fff; line-height: 1.15; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 99px; }
+
+/* ═══════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════ */
+@keyframes fadeUp  { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
+@keyframes slideIn { from { opacity:0; transform:translateX(12px) } to { opacity:1; transform:translateX(0) } }
+@keyframes glowO   { 0%,100% { box-shadow:0 0 0 0 rgba(255,140,0,.35) } 60% { box-shadow:0 0 0 16px rgba(255,140,0,0) } }
+.a1 { animation: fadeUp .45s          ease both; }
+.a2 { animation: fadeUp .45s .10s     ease both; }
+.a3 { animation: fadeUp .45s .20s     ease both; }
+.a4 { animation: fadeUp .45s .30s     ease both; }
+.fi { animation: fadeIn  .35s         ease both; }
+.si { animation: slideIn .30s         ease both; }
+
+/* ═══════════════════════════════════════════════════════
+   HEADER / NAV
+═══════════════════════════════════════════════════════ */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 64px; display: flex; align-items: center;
+  background: rgba(12,12,12,.90); backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { display: flex; align-items: center; gap: 11px; cursor: pointer; }
+.logo-icon {
+  width: 38px; height: 38px; background: var(--orange); border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 14px rgba(255,140,0,.3); flex-shrink: 0; transition: transform .2s;
+}
+.logo:hover .logo-icon { transform: scale(1.08); }
+.logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; color: #fff; transition: color .2s; }
+.logo:hover .logo-text { color: var(--orange); }
+.nav-links { display: flex; gap: 2px; }
+.nav-btn {
+  padding: 7px 15px; border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 500;
+  color: var(--dim); border: none; background: none; cursor: pointer; transition: all .18s;
+}
+.nav-btn:hover  { color: #fff; background: var(--muted); }
+.nav-btn.active { color: var(--orange); background: rgba(255,140,0,.10); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--fg); padding: 8px; border-radius: 8px; }
+.hamburger:hover { background: var(--muted); }
+.mob-menu {
+  display: none; flex-direction: column; gap: 3px;
+  position: absolute; top: 64px; left: 0; right: 0;
+  background: rgba(12,12,12,.97); backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border); padding: 10px 16px 14px;
+}
+.mob-menu.open { display: flex; }
+.mob-btn {
+  padding: 11px 14px; border-radius: 8px; text-align: left;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+  color: var(--dim); border: none; background: none; cursor: pointer; transition: all .18s;
+}
+.mob-btn:hover  { color: #fff; background: var(--muted); }
+.mob-btn.active { color: var(--orange); background: rgba(255,140,0,.10); }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE CONTAINERS
+═══════════════════════════════════════════════════════ */
+.page { display: none; min-height: 100vh; padding-top: 64px; }
+.page.show { display: block; }
+.wrap    { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+.wrap-sm { max-width:  900px; margin: 0 auto; padding: 0 28px; }
+
+/* ═══════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 24px; border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  border: none; cursor: pointer; transition: all .22s;
+}
+.btn-o       { background: var(--orange); color: #000; box-shadow: 0 0 18px rgba(255,140,0,.2); }
+.btn-o:hover { background: #e07a00; transform: translateY(-2px); box-shadow: 0 4px 26px rgba(255,140,0,.35); }
+.btn-outline       { background: transparent; color: var(--fg); border: 1.5px solid var(--border); }
+.btn-outline:hover { background: var(--muted); color: #fff; transform: translateY(-2px); }
+.btn-ghost       { background: transparent; color: var(--dim); border: 1.5px solid var(--border); }
+.btn-ghost:hover { background: var(--muted); color: #fff; }
+.btn-op       { background: rgba(255,140,0,.08); color: var(--orange); border: 1.5px solid rgba(255,140,0,.25); }
+.btn-op:hover { background: rgba(255,140,0,.15); }
+.btn-sm { padding: 6px 13px; font-size: 12.5px; }
+
+/* ═══════════════════════════════════════════════════════
+   BADGES
+═══════════════════════════════════════════════════════ */
+.badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 500; }
+.b-muted { background: var(--muted); color: var(--fg); }
+.b-o     { background: rgba(255,140,0,.12); color: var(--orange); border: 1px solid rgba(255,140,0,.20); }
+.b-blue  { background: rgba(18,181,208,.12); color: var(--blue); }
+
+/* ═══════════════════════════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════════════════════════ */
+.home-intro { padding: 36px 0 32px; border-bottom: 1px solid rgba(255,255,255,.05); }
+.home-inner { display: flex; gap: 28px; align-items: flex-start; max-width: 960px; }
+
+/* Avatar — bigger as requested */
+.home-avatar {
+  width: 112px; height: 112px; border-radius: 50%;
+  border: 3px solid var(--orange); overflow: hidden; flex-shrink: 0;
+  animation: glowO 3s infinite; background: var(--muted);
+}
+.home-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.home-avatar-ph {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; color: var(--orange);
+  background: linear-gradient(135deg,#1a1a1a,#222);
+}
+.home-text h1 { font-size: clamp(22px,3.2vw,30px); font-weight: 700; margin-bottom: 3px; }
+.home-role { color: var(--orange); font-weight: 600; font-size: 13.5px; margin-bottom: 10px; }
+.home-bio { color: var(--dim); font-size: 14px; line-height: 1.65; max-width: 580px; margin-bottom: 20px; }
+
+/* Philosophy inline in intro */
+.phil-inline {
+  background: rgba(255,140,0,.04); border: 1px solid rgba(255,140,0,.12);
+  border-radius: 14px; padding: 18px 22px; max-width: 700px; margin-top: 2px;
+}
+.phil-inline h4 {
+  font-size: 14.5px; color: #fff; margin-bottom: 11px;
+  display: flex; align-items: center; gap: 8px;
+}
+.phil-items { display: flex; flex-direction: column; gap: 8px; }
+.phil-item { font-size: 13.5px; color: var(--dim); line-height: 1.6; }
+
+/* Home sections */
+.home-sec     { padding: 52px 0; }
+.home-sec-alt { padding: 52px 0; background: rgba(18,181,208,.03); border-top: 1px solid var(--border); }
+.sec-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; flex-wrap: wrap; gap: 10px; }
+.big-h { font-size: clamp(32px,5.5vw,58px); font-weight: 800; text-transform: uppercase; letter-spacing: -1px; }
+.big-h span { color: var(--orange); }
+.sec-icon-row { display: flex; align-items: center; gap: 10px; }
+.sec-icon-row h3 { font-size: 22px; font-weight: 700; }
+
+/* Project cards (home grid) */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 18px; }
+.pc {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; cursor: pointer; transition: all .25s; display: flex; flex-direction: column;
+}
+.pc:hover { border-color: rgba(255,140,0,.40); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(255,140,0,.10); }
+.pc-img { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--muted); }
+.pc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.pc:hover .pc-img img { transform: scale(1.05); }
+.pc-body { padding: 15px 17px; flex: 1; display: flex; flex-direction: column; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 9px; }
+.pc-title { font-size: 15.5px; font-weight: 700; color: #fff; margin-bottom: 5px; transition: color .2s; }
+.pc:hover .pc-title { color: var(--orange); }
+.pc-desc { font-size: 13px; color: var(--dim); line-height: 1.6; flex: 1; }
+.pc-meta { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-top: 10px; }
+
+/* ═══════════════════════════════════════════════════════
+   SPLIT VIEW (shared by Projects + Analysis)
+═══════════════════════════════════════════════════════ */
+.split-wrap {
+  display: grid; grid-template-columns: 285px 1fr; gap: 18px;
+  height: calc(100vh - 190px); min-height: 550px;
+}
+.split-sb { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow-y: auto; padding: 8px; }
+.split-sb::-webkit-scrollbar { width: 3px; }
+.sb-item {
+  display: flex; align-items: center; border-radius: 9px; overflow: hidden;
+  cursor: pointer; transition: all .2s; border: 1px solid transparent; margin-bottom: 5px;
+}
+.sb-item:hover { border-color: rgba(255,140,0,.25); }
+.sb-o { border-color: var(--orange) !important; background: rgba(255,140,0,.06); box-shadow: 0 0 12px rgba(255,140,0,.12); }
+.sb-b { border-color: var(--blue)   !important; background: rgba(18,181,208,.06); box-shadow: 0 0 12px rgba(18,181,208,.10); }
+.sb-thumb { width: 68px; height: 58px; flex-shrink: 0; overflow: hidden; background: var(--muted); }
+.sb-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.sb-info { padding: 9px 12px; flex: 1; min-width: 0; }
+.sb-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-o .sb-title { color: var(--orange); }
+.sb-b .sb-title { color: var(--blue); }
+.sb-sub { font-size: 11.5px; color: var(--dim); }
+.split-ct { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow-y: auto; padding: 26px; }
+.split-ct::-webkit-scrollbar { width: 3px; }
+
+/* ═══════════════════════════════════════════════════════
+   PROJECT DETAIL — COMPONENTS
+═══════════════════════════════════════════════════════ */
+/* Banner */
+.proj-banner { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 20px; aspect-ratio: 21/9; background: var(--muted); }
+.proj-banner img { width: 100%; height: 100%; object-fit: cover; }
+.proj-banner-grad { position: absolute; inset: 0; background: linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 55%,transparent 100%); }
+.proj-banner-inner { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 22px; }
+.proj-banner-inner h1 { font-size: clamp(18px,2.8vw,28px); margin: 0; }
+.banner-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 7px; }
+
+/* Section label inside project */
+.sec-lbl {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.dot-o { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+.dot-b { width: 6px; height: 6px; border-radius: 50%; background: var(--blue);   flex-shrink: 0; }
+.proj-sec { margin-bottom: 22px; }
+
+/* 2-col info boxes */
+.info-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-bottom: 18px; }
+.info-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px; }
+.info-box-h { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+.info-box-h h3 { font-size: 13.5px; margin: 0; }
+.info-box p { font-size: 13px; color: var(--dim); margin: 0; line-height: 1.65; }
+
+/* Core loop */
+.loop-bar { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 17px; margin-bottom: 18px; }
+.loop-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+.loop-step { background: var(--muted); border-radius: 6px; padding: 5px 10px; text-align: center; }
+.loop-step strong { display: block; font-size: 11.5px; color: #fff; }
+.loop-step span   { font-size: 10.5px; color: var(--dim); }
+.loop-arrow { color: var(--orange); font-size: 14px; font-weight: 700; }
+
+/* SLIDESHOW */
+.slideshow { position: relative; border-radius: 11px; overflow: hidden; background: #000; margin-bottom: 20px; aspect-ratio: 16/9; }
+.slides    { display: flex; width: 100%; height: 100%; transition: transform .4s ease; }
+.slide     { flex: 0 0 100%; height: 100%; position: relative; }
+.slide img    { width: 100%; height: 100%; object-fit: cover; display: block; }
+.slide iframe { width: 100%; height: 100%; border: none; display: block; }
+.slide-prev, .slide-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(0,0,0,.65); backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.15);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #fff; z-index: 10; transition: background .2s;
+}
+.slide-prev { left: 10px; } .slide-next { right: 10px; }
+.slide-prev:hover, .slide-next:hover { background: rgba(255,140,0,.70); }
+.slide-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
+.s-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.4); cursor: pointer; transition: background .2s; }
+.s-dot.on { background: var(--orange); }
+.slide-count { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,.65); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 99px; z-index: 10; backdrop-filter: blur(4px); }
+.slide-cap { font-size: 11.5px; color: var(--dim); text-align: center; margin-top: -14px; margin-bottom: 14px; }
+
+/* Design Rationale (expandable) */
+.dr-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+.dr-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 14px 17px; cursor: pointer; transition: background .2s; gap: 12px; }
+.dr-head:hover { background: var(--muted); }
+.dr-headline { font-size: 13.5px; font-weight: 600; color: #fff; line-height: 1.5; margin-bottom: 3px; }
+.dr-sub { font-size: 12px; color: var(--dim); }
+.dr-chevron { color: var(--orange); flex-shrink: 0; margin-top: 2px; transition: transform .3s; }
+.dr-chevron.open { transform: rotate(180deg); }
+.dr-body { display: none; border-top: 1px solid var(--border); }
+.dr-body.open { display: block; }
+.dr-pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 14px 17px; border-bottom: 1px solid var(--border); }
+.dr-pillar { background: rgba(255,140,0,.05); border: 1px solid rgba(255,140,0,.12); border-radius: 8px; padding: 12px; }
+.dr-pillar-num { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--orange); margin-bottom: 4px; }
+.dr-pillar-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+.dr-pillar p { font-size: 12px; color: var(--dim); line-height: 1.55; margin: 0; }
+.dr-decisions { padding: 14px 17px; display: flex; flex-direction: column; gap: 14px; }
+.dr-item { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.dr-item:last-child { border-bottom: none; padding-bottom: 0; }
+.dr-item-title { font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.dr-quote { font-style: italic; font-size: 13px; color: rgba(255,140,0,.9); border-left: 3px solid var(--orange); padding-left: 10px; margin: 8px 0; line-height: 1.55; }
+.dr-row { display: flex; gap: 8px; margin-bottom: 5px; font-size: 13px; }
+.dr-row .emo { flex-shrink: 0; font-size: 14px; }
+.dr-row p { color: var(--dim); line-height: 1.6; margin: 0; }
+.dr-row p strong { color: #fff; }
+
+/* GDD box */
+.gdd-box {
+  background: rgba(255,140,0,.06); border: 1px solid rgba(255,140,0,.18); border-radius: 10px;
+  padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.gdd-box h4 { font-size: 14px; color: #fff; margin-bottom: 2px; }
+.gdd-box p  { font-size: 12px; color: var(--dim); margin: 0; }
+
+/* Reflection */
+/*.reflect-banner {
+  background: linear-gradient(135deg,rgba(255,140,0,.08),rgba(18,181,208,.05));
+  border: 1px solid rgba(255,140,0,.20); border-radius: 10px;
+  padding: 10px 15px; font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 16px;
+}*/
+.reflect-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-bottom: 16px; }
+.reflect-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px; }
+.reflect-box h3 { font-size: 13.5px; margin-bottom: 9px; display: flex; align-items: center; gap: 7px; }
+.rw h3 { color: var(--green); } .rf h3 { color: var(--red); }
+.r-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.r-list li { font-size: 13px; color: var(--dim); display: flex; gap: 6px; line-height: 1.55; }
+.lessons-box { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 15px; }
+.lessons-box h3 { font-size: 13.5px; color: var(--orange); margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+.lesson-item { display: flex; gap: 10px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.lesson-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.lesson-num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: rgba(255,140,0,.20); flex-shrink: 0; line-height: 1; width: 30px; }
+.lesson-t h4 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.lesson-t p  { font-size: 12.5px; color: var(--dim); margin: 0; line-height: 1.55; }
+
+/* ═══════════════════════════════════════════════════════
+   GAME ANALYSIS DETAIL — COMPONENTS
+═══════════════════════════════════════════════════════ */
+.ana-banner { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 18px; aspect-ratio: 21/9; background: var(--muted); }
+.ana-banner img { width: 100%; height: 100%; object-fit: cover; }
+.ana-banner-grad { position: absolute; inset: 0; background: linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.3) 55%,transparent 100%); }
+.ana-banner-inner { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 22px; }
+.ana-banner-inner h1 { font-size: clamp(16px,2.6vw,26px); margin: 0; }
+.ana-banner-inner p  { font-size: 13px; margin: 0 0 6px; font-weight: 600; }
+.ana-sec { margin-bottom: 24px; }
+.ana-num-lbl {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .10em; color: var(--dim);
+  margin-bottom: 8px;
+}
+.ana-num-lbl::before { content: ''; display: block; width: 3px; height: 13px; border-radius: 2px; flex-shrink: 0; }
+.blue-lbl::before { background: var(--blue); } .orange-lbl::before { background: var(--orange); }
+.ana-sec h2 { font-size: 17px; margin-bottom: 10px; }
+
+/* Core loop flow */
+.loop-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 12px; }
+.lf-step { background: var(--muted); border: 1px solid var(--border); border-radius: 8px; padding: 7px 11px; text-align: center; min-width: 78px; }
+.lf-step strong { display: block; font-size: 11.5px; color: #fff; }
+.lf-step span   { font-size: 10px; color: var(--dim); }
+.lf-arrow-b { color: var(--blue); font-size: 13px; font-weight: 700; }
+.lf-arrow-o { color: var(--orange); font-size: 13px; font-weight: 700; }
+.loop-types { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
+.lt-box { background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 11px 13px; }
+.lt-box .lt-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .08em; color: var(--dim); text-transform: uppercase; margin-bottom: 4px; }
+.lt-box p { font-size: 12.5px; color: var(--fg); line-height: 1.5; margin: 0; }
+.loop-note { font-size: 13px; color: var(--dim); line-height: 1.65; border-left: 3px solid var(--blue); padding-left: 12px; margin-top: 8px; }
+.loop-note-o { border-left-color: var(--orange); }
+
+/* Motivation */
+.motiv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-bottom: 12px; }
+.motiv-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 13px; }
+.motiv-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: 'Syne', sans-serif; font-size: 12px; margin-bottom: 7px; }
+.motiv-icon-b { background: rgba(18,181,208,.15); color: var(--blue); }
+.motiv-icon-o { background: rgba(255,140,0,.15); color: var(--orange); }
+.motiv-card h4 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.motiv-card p  { font-size: 12.5px; color: var(--dim); line-height: 1.55; margin: 0; }
+.motiv-tag { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 10.5px; font-weight: 600; margin-bottom: 5px; }
+.motiv-tag-p { background: rgba(18,181,208,.12); color: var(--blue); }
+.motiv-tag-s { background: rgba(255,255,255,.08); color: var(--dim); }
+.motiv-tag-po { background: rgba(255,140,0,.12); color: var(--orange); }
+.motiv-tag-so { background: rgba(255,255,255,.08); color: var(--dim); }
+.motiv-quote { font-size: 13px; color: var(--dim); line-height: 1.65; border-left: 3px solid var(--blue); padding-left: 12px; margin-top: 10px; font-style: italic; }
+.motiv-quote-o { border-left-color: var(--orange); }
+
+/* Why / Improve lists */
+.why-list, .improve-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.why-item, .improve-item { display: flex; gap: 9px; padding: 11px 13px; background: var(--bg); border: 1px solid var(--border); border-radius: 9px; }
+.dot-why { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.dot-why-b { background: var(--blue); } .dot-why-o { background: var(--orange); }
+.dot-imp-b { background: var(--blue); } .dot-imp-o { background: var(--orange); }
+.why-item p, .improve-item p { font-size: 13px; color: var(--dim); line-height: 1.6; margin: 0; }
+.why-item p strong, .improve-item p strong { color: #fff; }
+
+/* Borrow list */
+.borrow-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.borrow-item { display: flex; gap: 11px; padding: 13px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 9px; }
+.borrow-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; flex-shrink: 0; line-height: 1; width: 26px; }
+.borrow-num-b { color: rgba(18,181,208,.25); } .borrow-num-o { color: rgba(255,140,0,.25); }
+.borrow-t h4 { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.borrow-t p  { font-size: 12.5px; color: var(--dim); line-height: 1.55; margin: 0; }
+
+/* ═══════════════════════════════════════════════════════
+   RESUME PAGE
+═══════════════════════════════════════════════════════ */
+.resume-wrap { max-width: 860px; margin: 0 auto; padding: 32px 28px 80px; }
+.resume-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 10px; }
+.resume-top h1 { font-size: clamp(28px,4vw,42px); }
+.career-tag {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 12px; border-radius: 99px;
+  background: rgba(18,181,208,.10); border: 1px solid rgba(18,181,208,.25);
+  color: var(--blue); font-size: 12px; font-weight: 600; margin-top: 8px;
+}
+.resume-summary {
+  background: rgba(255,140,0,.06); border: 1px solid rgba(255,140,0,.20);
+  border-radius: 12px; padding: 18px 22px; margin-bottom: 32px;
+}
+.resume-summary h3 { font-size: 14.5px; color: var(--orange); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+.resume-summary p  { font-size: 13.5px; color: var(--dim); line-height: 1.7; margin: 0; }
+.rh { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 9px; }
+.rh h2 { font-size: 19px; }
+.resume-sec { margin-bottom: 32px; }
+
+/* Certs */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 13px; }
+.cert-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 17px; }
+.cert-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(18,181,208,.12); display: flex; align-items: center; justify-content: center; margin-bottom: 9px; }
+.cert-card h4 { font-size: 13.5px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+.cert-card .cert-org { font-size: 12px; color: var(--dim); }
+.cert-issued { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 11px; font-weight: 600; color: var(--blue); background: rgba(18,181,208,.10); padding: 3px 8px; border-radius: 99px; }
+/* Cert attach/view */
+.cert-attach { margin-top: 10px; }
+.cert-view-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 11px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  background: rgba(255,140,0,.10); color: var(--orange); border: 1px solid rgba(255,140,0,.25);
+  cursor: pointer; transition: background .2s;
+}
+.cert-view-btn:hover { background: rgba(255,140,0,.20); }
+.cert-placeholder { font-size: 12px; color: var(--dim); font-style: italic; margin-top: 6px; }
+
+/* Cert modal */
+.cert-modal-backdrop {
+  display: none; position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,.80); backdrop-filter: blur(6px);
+  align-items: center; justify-content: center; padding: 24px;
+}
+.cert-modal-backdrop.open { display: flex; }
+.cert-modal {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  max-width: 740px; width: 100%; max-height: 90vh; overflow: auto; padding: 24px;
+  position: relative;
+}
+.cert-modal img { width: 100%; border-radius: 8px; }
+.cert-modal-close {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--muted); border: none; border-radius: 50%;
+  width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #fff;
+}
+.cert-modal-close:hover { background: var(--border); }
+.cert-modal-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+
+/* Timeline */
+.bg-timeline { display: flex; flex-direction: column; gap: 20px; }
+.bg-item { position: relative; padding-left: 22px; border-left: 2px solid var(--muted); }
+.bg-dot  { position: absolute; left: -6px; top: 7px; width: 11px; height: 11px; border-radius: 50%; }
+.bg-dot-o { background: var(--orange); } .bg-dot-b { background: var(--blue); }
+.bg-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.bg-meta  { color: var(--blue); font-size: 12.5px; font-weight: 600; margin-bottom: 5px; }
+.bg-desc  { font-size: 13px; color: var(--dim); line-height: 1.6; }
+
+/* Skills */
+.skill-3col { display: grid; grid-template-columns: repeat(3,1fr); gap: 13px; }
+.skill-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 17px; }
+.skill-box h3 { font-size: 14px; margin-bottom: 12px; }
+.stags { display: flex; flex-wrap: wrap; gap: 7px; }
+.stag  { padding: 4px 10px; border-radius: 99px; background: var(--muted); font-size: 12px; color: var(--fg); }
+
+/* ═══════════════════════════════════════════════════════
+   CONTACT PAGE
+═══════════════════════════════════════════════════════ */
+.contact-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 24px; }
+.contact-inner { text-align: center; max-width: 500px; width: 100%; }
+.contact-inner h1 { font-size: clamp(26px,5vw,46px); margin-bottom: 12px; }
+.contact-inner h1 span { color: var(--orange); }
+.contact-inner > p { color: var(--dim); font-size: 16px; margin-bottom: 32px; }
+.contact-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px 18px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: border-color .2s; }
+.contact-card:hover { border-color: rgba(255,140,0,.40); }
+.c-icon { width: 54px; height: 54px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 11px; }
+.c-label { font-size: 12px; color: var(--dim); margin-bottom: 3px; }
+.c-value { font-size: 14.5px; font-weight: 600; color: #fff; transition: color .2s; }
+.contact-card:hover .c-value { color: var(--orange); }
+
+/* ═══════════════════════════════════════════════════════
+   FLOWCHART
+═══════════════════════════════════════════════════════ */
+.flowchart-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+.fc-tab {
+  padding: 6px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all .2s;
+  background: var(--muted); color: var(--dim); border: 1px solid var(--border);
+}
+.fc-tab.active { background: rgba(255,140,0,.12); color: var(--orange); border-color: rgba(255,140,0,.3); }
+.fc-panel { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+.fc-wrap { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.fc-node {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 9px 16px; text-align: center; font-size: 13px; color: var(--fg);
+  width: 100%; max-width: 380px; line-height: 1.5;
+}
+.fc-node.fc-cutscene { border-color: rgba(255,140,0,.25); background: rgba(255,140,0,.04); }
+.fc-node.fc-main     { border-color: rgba(255,140,0,.45); background: rgba(255,140,0,.10); font-weight: 600; }
+.fc-node.fc-decision { border-color: rgba(18,181,208,.35); background: rgba(18,181,208,.05); }
+.fc-node.fc-cliff    { border-color: rgba(255,255,255,.15); background: rgba(255,255,255,.04); font-style: italic; color: var(--dim); }
+.fc-node.fc-win      { border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.10); color: var(--green); font-weight: 700; max-width: 140px; }
+.fc-node.fc-lose     { border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.08); color: var(--red); max-width: 180px; }
+.fc-node.fc-branch-node { max-width: 220px; font-size: 12.5px; }
+.fc-node.fc-warn     { border-color: rgba(239,68,68,.3); color: rgba(239,68,68,.85); }
+.fc-tag { display: block; font-size: 10px; font-weight: 700; letter-spacing: .08em; color: var(--orange); margin-bottom: 2px; text-transform: uppercase; }
+.fc-tag-main { color: #ffffff; }
+.fc-arrow-v { width: 2px; height: 18px; background: var(--border); margin: 0 auto; }
+.fc-branch-row { display: flex; justify-content: center; gap: 16px; width: 100%; margin: 4px 0; }
+.fc-branch-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; max-width: 240px; }
+.fc-arrow-diag-l, .fc-arrow-diag-r {
+  width: 2px; height: 20px; background: var(--border); transform: rotate(-20deg); transform-origin: top center; margin: 0 auto;
+}
+.fc-arrow-diag-r { transform: rotate(20deg); transform-origin: top center; }
+.fc-merge-arrow {
+  width: 0; height: 0;
+  border-left: 8px solid transparent; border-right: 8px solid transparent;
+  border-top: 12px solid var(--border); margin: 2px auto 4px;
+}
+
+/* Fix DR headline wrap */
+.dr-headline { font-size: 13.5px; font-weight: 600; color: #fff; line-height: 1.55; margin-bottom: 3px; white-space: normal; word-break: break-word; }
+.dr-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 14px 17px; cursor: pointer; transition: background .2s; gap: 12px; }
+
+/* Motiv card — title first, big, no icon */
+.motiv-title { font-size: 15px !important; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+.motiv-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.motiv-card p  { font-size: 12.5px; color: var(--dim); line-height: 1.55; margin: 0; margin-top: 6px; }
+.motiv-tag { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 10.5px; font-weight: 600; margin-bottom: 0; }
+
+@media (max-width:768px) {
+  .skill-3col { grid-template-columns: 1fr 1fr; }
+  .fc-branch-row { gap: 8px; }
+}
+#toast { position: fixed; bottom: 22px; right: 22px; z-index: 999; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 13px 17px; box-shadow: 0 8px 28px rgba(0,0,0,.5); max-width: 290px; display: none; animation: fadeUp .3s ease both; }
+#toast-title { font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 2px; }
+#toast-desc  { font-size: 12px; color: var(--dim); }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media (max-width:768px) {
+  .nav-links { display: none; } .hamburger { display: flex; }
+  .split-wrap { grid-template-columns: 1fr; height: auto; }
+  .split-sb   { max-height: 200px; }
+  .split-ct   { height: 58vh; }
+  .info-2col, .reflect-2col, .motiv-grid, .loop-types, .dr-pillars { grid-template-columns: 1fr; }
+  .skill-2col { grid-template-columns: 1fr; }
+  .contact-2  { grid-template-columns: 1fr; }
+  .home-inner { flex-direction: column; }
+  .home-avatar { width: 90px; height: 90px; }
+}
+@media (max-width:480px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════ -->
+<header>
+  <div class="nav-inner">
+    <div class="logo" onclick="go('home')">
+      <div class="logo-icon">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round">
+          <rect x="2" y="6" width="20" height="12" rx="2"/>
+          <path d="M8 12h8M12 8v8M6 14h.01M18 10h.01"/>
+        </svg>
+      </div>
+      <span class="logo-text" id="logo-name">Alex.Design</span>
+    </div>
+    <div class="nav-links">
+      <!-- NAV ORDER: Home - Projects - Game Analysis - Resume - Contact -->
+      <button class="nav-btn active" id="nb-home"     onclick="go('home')">Home</button>
+      <button class="nav-btn"        id="nb-projects" onclick="go('projects')">Projects</button>
+      <button class="nav-btn"        id="nb-analysis" onclick="go('analysis')">Game Analysis</button>
+      <button class="nav-btn"        id="nb-resume"   onclick="go('resume')">Resume</button>
+      <button class="nav-btn"        id="nb-contact"  onclick="go('contact')">Contact</button>
+    </div>
+    <button class="hamburger" onclick="toggleMob()">
+      <svg id="hi-o" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      <svg id="hi-c" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-btn active" id="mb-home"     onclick="go('home');closeMob()">Home</button>
+    <button class="mob-btn"        id="mb-projects" onclick="go('projects');closeMob()">Projects</button>
+    <button class="mob-btn"        id="mb-analysis" onclick="go('analysis');closeMob()">Game Analysis</button>
+    <button class="mob-btn"        id="mb-resume"   onclick="go('resume');closeMob()">Resume</button>
+    <button class="mob-btn"        id="mb-contact"  onclick="go('contact');closeMob()">Contact</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="pg-home" class="page show">
+
+  <!-- Compact Intro + Philosophy -->
+  <section class="home-intro">
+    <div class="wrap">
+      <div class="home-inner a1">
+        <!-- AVATAR: thay src thành đường dẫn ảnh thật của bạn, vd: src="images/avatar.jpg" -->
+        <div class="home-avatar">
+          <div class="home-avatar-ph" id="avatar-ph">AV</div>
+        </div>
+
+        <div class="home-text">
+          <h1 id="home-name">Uyen Vu</h1>
+          <div class="home-role" id="home-role">Game Designer</div>
+          <p class="home-bio" id="home-bio">
+            Self-taught game designer transitioning from Visual Design and Logistics. Focused on narrative systems, psychological tension, and player-driven decision spaces.
+          </p>
+          <!-- Design Philosophy inline -->
+          <div class="phil-inline" id="home-phil">
+            <h4>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Design Philosophy
+            </h4>
+            <div class="phil-items" id="phil-items-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="home-sec">
+    <div class="wrap">
+      <div class="sec-row a2">
+        <h2 class="big-h">PROJECTS<span>.</span></h2>
+        <button class="btn btn-op btn-sm" onclick="go('projects')">View All →</button>
+      </div>
+      <div class="card-grid a3" id="home-proj-grid"></div>
+    </div>
+  </section>
+
+  <!-- Featured Analysis -->
+  <section class="home-sec-alt">
+    <div class="wrap">
+      <div class="sec-row a2">
+        <div class="sec-icon-row">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <h3>Game Analysis</h3>
+        </div>
+        <button class="btn btn-op btn-sm" onclick="go('analysis')">View All →</button>
+      </div>
+      <div class="card-grid a3" id="home-ana-grid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PROJECTS PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="pg-projects" class="page">
+  <div class="wrap" style="padding-top:24px;padding-bottom:28px">
+    <div class="a1" style="margin-bottom:18px">
+      <h1 style="font-size:clamp(26px,4vw,40px)">Projects</h1>
+      <p style="color:var(--dim);margin-top:5px;font-size:15px">Game design case studies — from concept through post-mortem.</p>
+    </div>
+    <div class="split-wrap a2">
+      <div class="split-sb" id="proj-sb"></div>
+      <div class="split-ct" id="proj-ct"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     GAME ANALYSIS PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="pg-analysis" class="page">
+  <div class="wrap" style="padding-top:24px;padding-bottom:28px">
+    <div class="a1" style="margin-bottom:18px">
+      <h1 style="font-size:clamp(26px,4vw,40px)">Game Analysis</h1>
+      <p style="color:var(--dim);margin-top:5px;font-size:15px">Critical breakdowns — core loops, design decisions, and what I'm borrowing into my own work.</p>
+    </div>
+    <div class="split-wrap a2">
+      <div class="split-sb" id="ana-sb"></div>
+      <div class="split-ct" id="ana-ct"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     RESUME PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="pg-resume" class="page">
+  <div class="resume-wrap">
+    <div class="resume-top a1">
+      <div>
+        <h1>Resume</h1>
+        <div class="career-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Career Transition — Self-taught Game Designer
+        </div>
+      </div>
+      <button class="btn btn-o a2 btn-sm" onclick="toast('📄 Downloading Resume','Your PDF download will begin shortly.')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
+    </div>
+
+    <!-- Summary -->
+    <div class="resume-summary a2">
+      <h3>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        About Me
+      </h3>
+      <p id="resume-summary-text">
+        Self-taught game designer with a background in Visual Design (Print-on-Demand) and Logistics. Currently building my portfolio through personal game projects — applying skills in game design, systems design, and game analysis.
+      </p>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="resume-sec a3">
+      <div class="rh">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        <h2>Certifications</h2>
+      </div>
+      <div class="cert-grid" id="cert-grid-container"></div>
+    </div>
+
+    <!-- BACKGROUND — order: Self Study → Designer POD → Logistics -->
+    <div class="resume-sec a3">
+      <div class="rh">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        <h2>Background</h2>
+      </div>
+      <div class="bg-timeline" id="bg-timeline-container"></div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="resume-sec a4">
+      <div class="rh">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <h2>Skills</h2>
+      </div>
+      <div class="skill-3col" id="skill-grid-container"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CONTACT PAGE
+═══════════════════════════════════════════════════════ -->
+<div id="pg-contact" class="page">
+  <div class="contact-wrap">
+    <div class="contact-inner">
+      <h1 class="a1">Let's build something <span>epic.</span></h1>
+      <p class="a2">Open for new opportunities. Feel free to reach out!</p>
+      <div class="contact-2 a3" id="contact-grid-container"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"><div id="toast-title"></div><div id="toast-desc"></div></div>
+
+<!-- CERT MODAL -->
+<div class="cert-modal-backdrop" id="certModal" onclick="closeCertModal(event)">
+  <div class="cert-modal">
+    <button class="cert-modal-close" onclick="closeCertModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="cert-modal-title" id="cert-modal-title"></div>
+    <img id="cert-modal-img" src="" alt="Certificate"/>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ██████████████████████ DATA — EDIT HERE ████████████████████████████
+     Chỉ cần chỉnh sửa trong phần này. Không cần đụng vào code bên dưới.
+═══════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ──────────────────────────────────────────────────────────
+   SECTION 1 — PERSONAL INFO
+   Thay thông tin cá nhân của bạn vào đây
+────────────────────────────────────────────────────────── */
+const PERSONAL = {
+  name:       "Uyen Vu",          // Tên hiện thị trên logo và trang Home
+  logoName:   "UYEN_GameDesigner",         // Tên trên logo header
+  role:       "Game Designer",       // Vai trò
+  avatarSrc:  "",                    // Đường dẫn ảnh avatar, vd: "images/avatar.jpg" — để trống = hiện chữ tắt
+  avatarFallback: "UV",              // Chữ tắt hiện khi không có ảnh
+  bio: "Self-taught game designer transitioning from Visual Design and Logistics. Focused on narrative systems, psychological tension, and player-driven decision spaces.",
+  resumeSummary: "Self-taught game designer with a background in Visual Design (Print-on-Demand) and Logistics. Currently building my portfolio through personal game projects — applying skills in narrative design, systems design, and game analysis.",
+  contactEmail: "uyenvu2306@gmail.com",   // Email thật của bạn
+  contactPhone: "+84 773 670 235",  // Số điện thoại thật
+};
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 2 — DESIGN PHILOSOPHY (hiện trong Home intro)
+────────────────────────────────────────────────────────── */
+const PHILOSOPHY = [
+  {
+    accent: "orange",  // "orange" hoặc "blue"
+    bold:   "Iterative Design:",
+    text:   "Fail fast, learn faster. Prototyping is the best way to find the fun."
+  },
+  {
+    accent: "blue",
+    bold:   "Player-Centric Systems:",
+    text:   "Mechanics should serve the fantasy, not the other way around."
+  },
+];
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 3 — PROJECTS
+   Thứ tự: The Slices → Empire → Farm
+   slides: mảng ảnh/video showcase
+     { type: "image", url: "images/slices1.jpg", cap: "Caption" }
+     { type: "youtube", url: "VIDEO_ID_YOUTUBE", cap: "Caption" }  <- chỉ cần ID, vd "dQw4w9WgXcQ"
+   hasDesignRationale: true/false — chỉ The Slices có DR
+────────────────────────────────────────────────────────── */
+const PROJECTS = [
+
+  /* ── PROJECT 1: THE SLICES ───────────────────────────── */
+  {
+    id: "slices",
+    title: "The Slices",
+    engine: "Unity",
+    role: "Solo Designer",
+    genre: "First-person Mystery / Psychological Thriller",
+    platform: "PC (Windows)",
+    scope: "Prototype — Act 1 (~30–45 min)",
+    // Thumbnail cho sidebar và home card
+    thumb: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200&q=65",
+    // Banner lớn trong detail view
+    banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1000&q=75",
+    overview: "THE SLICES is a first-person mystery / psychological thriller. You play as Main Character — a theoretical physics PhD student who stumbles upon a mysterious website and begins receiving pills that grant glimpses of the future. Prototype covers Act 1 complete: from the opening, the pill mechanic, the first playable scene, to a cliffhanger setup for what follows.",
+    designGoals: "Create a first-person mystery where psychological tension doesn't come from mechanics — it comes from the feeling of knowing too much while controlling too little. Every system serves that tension.",
+    coreLoop: [
+      { step: "Discover Website",  sub: "opening hook" },
+      { step: "Receive Mail",      sub: "build stakes" },
+      { step: "Take Pill",         sub: "vision sequence" },
+      { step: "Core Gameplay",     sub: "find the cat (timer)" },
+      { step: "Consequence",       sub: "delayed reveal" },
+    ],
+    // SLIDES — thay URL bằng ảnh/video thật của bạn
+    slides: [
+      { type: "image", url: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=900&q=75", cap: "Diegetic UI — notebook as quest log, pill box as resource tracker" },
+      { type: "image", url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=75", cap: "Game flow diagram — Act 1 narrative arc" },
+      { type: "image", url: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=900&q=75", cap: "Environment concept — MC's neighbourhood" },
+    ],
+    hasGDD: true,    // Có link GDD để download
+    gddLabel: "Game Design Document — The Slices",
+    gddDesc: "Full GDD: narrative design, scene breakdown, mechanic specifications.",
+
+    // DESIGN RATIONALE — chỉ có ở The Slices
+    hasDesignRationale: true,
+    drHeadline: "THE SLICES was designed around one question: if you knew something was going to happen, but couldn't be certain you understood it correctly — would you act? Every mechanic serves that tension.",
+    drPillars: [
+      {
+        num: "PILLAR 01",
+        title: "Information is the scarce resource",
+        text: "Not lives. Not items. The player never runs out of ways to act — only certainty about what to act on. Scarcity of information is what creates dread."
+      },
+      {
+        num: "PILLAR 02",
+        title: "No system should announce itself",
+        text: "Every mechanic exists inside the world — notebook, pill box, spatial audio. If the player notices the UI as a UI, something is wrong."
+      },
+      {
+        num: "PILLAR 03",
+        title: "Ordinary and extraordinary in the same frame",
+        text: "The thriller only works when the world around MC is completely normal. Contrast is the engine. NPCs discuss mundane things while the player races a timer only they can feel."
+      },
+    ],
+    drDecisions: [
+      {
+        title: "01 — First-person perspective with no visible protagonist",
+        text: "MC has no face, no reflected appearance. The blank-slate first-person framing invites projection. The player doesn't play the MC role, they are Main Character. Players'll construct their own emotional attachment and immerse in this game.",
+      },
+      {
+        title: "02 — Diegetic UI",
+        text: "The notebook is a physical object MC writes in. The pill box shows in-world. MC's watch as a Timer, Spatial audio is the navigation system, not a minimap. I tried to minimize the UI presence in the game, because every UI element that exists outside the world is a small admission that the world isn't real enough to contain the game.",
+      },
+      {
+        title: "03 — Cat Level is designed as a Prologue, not a showcase",
+        text: "The first playable sequence asks the player to find a lost cat before 14:35. The stakes are low. The mission is mundane. This is intentional — I want the players learn spatial audio navigation and the NPC hint tier system before those skills matter.",
+      },
+      {
+        title: "04 — NPC hint tier system with no explicit guidance",
+        text: "Three levels of NPC information: random passersby (no useful info), Ms. Racheal (partial hint + pate item), and the owner (immediate resolution, emotional payoff). The player is never told this structure exists. Curiosity is rewarded, not required.",
+      },
+      {
+        title: "05 — Soft-lock on Mail 3 — the choice that isn't",
+        text: "When the third email asks MC to send their home address, the player can refuse — the mail disappears, the game cannot progress.",
+      },
+      {
+        title: "06 — Five pills — a resource needed to use wisely",
+        text: "The Slices needs players asking 'when should I use a pill?' — not 'I can use the pill whenever I want.'",
+      },
+      {
+        title: "07 — Spatial audio as the only navigation language",
+        text: "No minimap. No waypoints. No on-screen markers. The sound in game — these are the guidance system. Players who listen navigate faster than players who wander. This creates a low-stakes training ground for a skill that becomes load-bearing in Act 2.",
+      },
+      {
+        title: "08 — The friend disappears one in-game day after the player's choice",
+        text: "If the player reveals the website to their friend, the friend disappears — but not until the next in-game session. The consequence is delayed by design. The design intent is not to punish the player what not to do — it is to make them uncertain about what they have already done.",
+      },
+    ],
+
+    // REFLECTION
+    workedWell: [
+      "Diegetic UI creates strong immersion — players feel genuinely 'inside' MC's space",
+      "NPC tier hint system creates natural exploration without feeling guided",
+    ],
+    didntWork: [
+      "Pacing in the opening act is too slow — some players disengage before reaching the tension peak",
+      "Some environmental hints are too subtle — need an additional visual feedback layer",
+    ],
+    lessons: [
+      { title: "Tension needs rhythm, not continuity",   desc: "If the game is always tense, players acclimate and lose the feeling. Breathing moments before a hard hit are essential." },
+      { title: "Diegetic UI needs invisible onboarding", desc: "Placing information inside the world isn't enough — players need to know where to look, through environmental storytelling and cues." },
+      { title: "Delayed consequences need foreshadowing", desc: "The most haunting punishment is one where the player can look back and see the signs were always there — not one that appears completely out of nowhere." },
+    ],
+  },
+
+  /* ── PROJECT 2: EMPIRE ───────────────────────────────── */
+  {
+    id: "empire",
+    title: "Empire",
+    engine: "HTML5 / Browser",
+    role: "Solo Designer",
+    genre: "Narrative Strategy / Political Decision Game",
+    platform: "Browser (Mobile & Desktop)",
+    scope: "Chapter I Prototype — 17 Events + 3 Major Events",
+    thumb: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=200&q=65",
+    banner: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1000&q=75",
+    overview: "EMPIRE is a narrative political decision game set in Imperium Aurelianum — a Roman-inspired empire whose lifeblood flows through a single harbor. You inherit the role of Imperator Cassian and must navigate the first months of reign: no combat, no conquest — only governance and the slow accumulation of consequence.",
+    designGoals: "No battles. Only governance — and the slow accumulation of consequence. Every choice writes a precedent that the empire will remember. Core tension is systemic: every decision shapes both the systems and the story of how power is executed.",
+    coreLoop: [
+      { step: "Read Event",      sub: "political situation" },
+      { step: "Choose Response", sub: "3 options always" },
+      { step: "Accumulate",      sub: "S / E / N / L axes" },
+      { step: "Major Event",     sub: "advisors speak" },
+      { step: "Outcome",         sub: "stability update" },
+    ],
+    // SLIDES — thay bằng ảnh game thật
+    slides: [
+      { type: "image", url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=75", cap: "Three-column layout — Pillar bars / Event panel / Advisory Council" },
+      { type: "image", url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=75", cap: "Four Pillar System — S/E/N/L displayed as directional bars, never raw numbers" },
+    ],
+    hasGDD: true,
+    gddLabel: "Game Design Document — Empire v0.9",
+    gddDesc: "Full GDD: 17 standard events, 3 major events, 4-pillar system, advisor logic, branching structure.",
+
+    hasDesignRationale: false, // Không có DR
+
+    workedWell: [
+      "Hidden axis system (S/E/N/L) creates meaningful emergent consequences without UI clutter",
+      "Advisor speeches that reference behavioral patterns make the game feel like it's watching",
+      "MEII branching creates genuine replay value with three distinct narrative paths",
+    ],
+    didntWork: [
+      "Precedent Ledger system too opaque — players can't intuit what patterns they're forming",
+      "Some standard events feel disconnected from the harbor's central systemic tension",
+    ],
+    lessons: [
+      { title: "Invisible systems need legible feedback", desc: "Hidden axes are engaging when players can sense their direction from narrative tone — but the signal needs to be consistent enough to be readable." },
+      { title: "Advisors work best as behavioral mirrors", desc: "The most effective advisor speeches were ones that directly referenced past choices. Generic advice feels cheap; personal reflection feels earned." },
+    ],
+  },
+
+  /* ── PROJECT 3: FARM ─────────────────────────────────── */
+  {
+    id: "farm",
+    title: "Farm",
+    engine: "Unity",
+    role: "Solo Designer",
+    genre: "Casual Simulation + Board Game Hybrid",
+    platform: "PC (Windows)",
+    scope: "Prototype — 3 scenes, 1 complete loop",
+    thumb: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=200&q=65",
+    banner: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=1000&q=75",
+    overview: "Farm is a three-scene game with a connected loop. The player starts on a farm, grows and harvests items, then must cross a forest modeled as a board game to reach the shop and sell. The forest introduces random events that force risk/reward decisions — creating tension between protecting the harvest and pressing forward.",
+    designGoals: "Demonstrate the ability to design and ship a complete, playable gameplay loop. First completed project — focused on connecting three distinct scenes into a coherent risk/reward cycle.",
+    coreLoop: [
+      { step: "The Farm",   sub: "plant & harvest" },
+      { step: "The Forest", sub: "dice board game" },
+      { step: "The Shop",   sub: "sell for gold" },
+      { step: "Return",     sub: "reinvest & repeat" },
+    ],
+    slides: [
+      { type: "image", url: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=900&q=75", cap: "Scene 2 — Forest board game with four event tile types" },
+      { type: "image", url: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=900&q=75", cap: "Economy flow — seeds → items → gold cycle across three scenes" },
+    ],
+    hasGDD: true,
+    gddLabel: "Game Design Document — Farm v1.0",
+    gddDesc: "Full GDD: scene breakdown, event tile types, economy system, win/lose conditions.",
+
+    hasDesignRationale: false, // Không có DR
+
+    workedWell: [
+      "Monster tile creates a genuine and memorable risk/reward decision — Option A vs Option B",
+      "Three-scene loop is immediately legible — players understand the full cycle quickly",
+      "Complete delivery: first project shipped end-to-end as a functional prototype",
+    ],
+    didntWork: [
+      "No permanent progression across runs — gold accumulation lacks meaningful spend options",
+    ],
+    lessons: [
+      { title: "Risk must feel recoverable to stay engaging", desc: "A loss condition that strips everything resets not just items but player motivation. A partial-loss buffer would improve retention across repeated runs." },
+      /*{ title: "Shipping teaches what planning cannot",       desc: "The act of completing and connecting three scenes revealed scope decisions that no design doc preparation had fully anticipated." },*/
+    ],
+  },
+
+]; // end PROJECTS
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 4 — GAME ANALYSIS
+────────────────────────────────────────────────────────── */
+const ANALYSES = [
+
+  /* ── ANALYSIS 1: DETROIT — accent: blue ─────────────── */
+  {
+    id: "detroit",
+    title: "Detroit: Become Human",
+    dev: "Quantic Dream · PS4/PC · 2018",
+    tags: ["Narrative Adventure","Choice-Driven","Branching Dialogue","Single-Player","~10–12h per run"],
+    accent: "blue",  // controls all colors in this analysis
+    thumb: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=200&q=65",
+    banner: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1000&q=75",
+    coreLoopDesc: "The macro loop is repeatable: enter a chapter, absorb the environment, face a moral decision under pressure, then exit to a flowchart that shows every path you didn't take. That flowchart is the heartbeat of the entire design.",
+    coreLoopFlow: [
+      { step: "Arrive at scene",       sub: "free exploration" },
+      { step: "Gather clues",          sub: "unlock options" },
+      { step: "High-stakes choice",    sub: "time pressure" },
+      { step: "Consequence ripples",   sub: "carried forward" },
+      { step: "Flowchart reveal",      sub: "FOMO ignited" },
+    ],
+    loopTypes: [
+      { label: "MACRO LOOP",    text: "Chapter → Choice → Consequence → Recap (~25 min cycle, highly repeatable)" },
+      { label: "MICRO LOOP",    text: "Explore scene → Find clues → Unlock paths" },
+      { label: "META LOOP",     text: "Flowchart reveals locked branches — FOMO drives replay across multiple runs" },
+      /*{ label: "EMOTIONAL LOOP",text: "Moral ownership per decision — player implicates themselves, not just a character" },*/
+    ],
+    coreLoopNote: "At the micro level, exploration gates agency: the more clues you find, the more dialogue options open up. This rewards the curious player without punishing the impatient one. At the meta level, the post-chapter flowchart evokes players's curiosity — one of the most elegant retention mechanics in the genre.",
+    motivations: [
+      { icon: "M", tag: "PRIMARY",   tagStyle: "p", title: "Moral ownership",       desc: "Choices implicate the player personally. \"I chose to shoot\" lands differently than \"the character shot.\"" },
+      { icon: "F", tag: "PRIMARY",   tagStyle: "p", title: "FOMO engine",           desc: "The post-chapter flowchart makes locked branches visible — triggering both completionist and curious players equally." },
+      { icon: "C", tag: "SECONDARY", tagStyle: "s", title: "Character attachment",  desc: "Three protagonists (Connor, Kara, Markus) serve three emotional registers. Players champion one above all others." },
+      { icon: "P", tag: "SECONDARY", tagStyle: "s", title: "Philosophical pull",    desc: "\"Are androids conscious?\" is a question players want to test, not just observe. The game hands them the tools." },
+    ],
+    motivationMain: "Detroit's deepest motivation is narrative self-expression. Players aren't solving the story — they're writing their version of it. That shift from audience to author is the engine underneath everything else.",
+    whyItWorks: [
+      { bold: "Consequence clarity.",                     text: "Every choice, even small ones, visibly moves the world. Dialogue is noted, characters remember, doors close permanently." },
+      { bold: "Short chapters as commitment architecture.", text: "At 15–30 min per chapter, the game invites 'just one more' sessions and dramatically lowers the barrier to replay." },
+      { bold: "Three protagonist tempos.",                 text: "Connor's detective procedural, Kara's survival stealth, and Markus's political uprising move at different emotional speeds — the interweaving prevents fatigue." },
+      { bold: "The flowchart is a UI masterstroke.",       text: "Showing the decision tree after each chapter makes players want to explore every possibilities." },
+      { bold: "No 'correct' moral path.",                  text: "The game refuses to clearly reward the 'good' path. Both pacifism and violence can succeed or fail, creating genuine reflection rather than min-maxing." },
+    ],
+    whatIDImprove: [
+      { bold: "Kara's arc is dramatically thinner than Connor's.",     text: "Connor and Hank's relationship is the best writing in the game. Kara's protection narrative is emotionally competent but mechanically passive — she deserves equivalent agency depth." },
+      { bold: "Binary choices dressed as nuanced ones.",               text: "Most pivotal decisions collapse into two poles. A true middle path, occasionally, would elevate the game's credibility around its own moral complexity premise." },
+      { bold: "The mission grading screen is an immersion killer.",    text: "After a devastating chapter, being presented with a percentage score breaks the emotional spell immediately. Consequence should be felt, not graded." },
+      { bold: "The endings compress too fast.",                        text: "Branches that took hours to cultivate resolve in minutes. The tonal shift underserves the emotional investment, particularly for Markus's revolution arc." },
+    ],
+    borrowings: [
+      { title: "A visual consequence map after each session",    desc: "Show players a visual summary of what choices unlocked and locked — not necessarily a flowchart, but something that converts regret into curiosity." },
+      { title: "Multi-protagonist tempo design",                 desc: "Assigning different narrative speeds and mechanical registers to multiple characters controls pacing without sacrificing content density." },
+      { title: "Exploration-gated dialogue options",             desc: "Rewarding observant players with additional response options — not better outcomes, just more informed ones." },
+      { title: "Chapter-length sessions as a retention lever",   desc: "Designing in 20–30 min self-contained arcs with clear emotional endpoints serves modern play patterns and lowers commitment cost per session." },
+      { title: "No mechanically 'correct' moral path",           desc: "Refusing to reward the 'good' choice mechanically forces players to decide based on values rather than optimisation." },
+    ],
+  },
+
+  /* ── ANALYSIS 2: LIFE IS STRANGE — accent: orange ───── */
+  {
+    id: "lis",
+    title: "Life Is Strange",
+    dev: "Dontnod · Square Enix · PC/PS4/XBO · 2015",
+    tags: ["Episodic Narrative","Time Rewind Mechanic","Butterfly Effect","Single-Player","5 Episodes · ~10–12h"],
+    accent: "orange",
+    thumb: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=200&q=65",
+    banner: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1000&q=75",
+    coreLoopDesc: "The genius of Life Is Strange is that its core mechanic — time rewind — is also its core design philosophy. Players are never truly punished for curiosity; every action can be undone. But the final commitment cannot. That tension between safety and consequence is the entire game.",
+    coreLoopFlow: [
+      { step: "Explore & interact", sub: "observe cause" },
+      { step: "Trigger outcome",    sub: "see the effect" },
+      { step: "Rewind or commit",   sub: "player decides" },
+      { step: "Consequence",        sub: "carries into next scene" },
+    ],
+    loopTypes: [
+      { label: "MICRO LOOP",    text: "Explore → Trigger → Rewind → Commit. Repeated every 3–5 minutes. Safe experimentation, hard commitment." },
+      { label: "MACRO LOOP",    text: "Episode → Pivotal choice → Cliffhanger. No rewind at episode boundaries. Commitment is final." },
+      { label: "META LOOP",     text: "Butterfly effect across 5 episodes. Earlier decisions surface as consequences in later chapters." },
+      { label: "EMOTIONAL LOOP",text: "Max & Chloe's relationship. Players invest in the duo. The final choice works because Chloe is a relationship, not a character." },
+    ],
+    coreLoopNote: "The episodic structure maps elegantly onto the rewind mechanic at a meta level: the episode boundary is the ultimate 'no rewind' moment. Once an episode ends, you're committed — just like Max's power has limits.",
+    motivations: [
+      { icon: "U", tag: "PRIMARY",   tagStyle: "po", title: "The 'undo' fantasy",          desc: "Rewind reduces choice anxiety. The freedom paradoxically makes the final, irreversible choices hit much harder." },
+      { icon: "M", tag: "PRIMARY",   tagStyle: "po", title: "Max & Chloe's relationship",  desc: "The emotional spine of the game. Players invest in the duo, not the mystery. The final choice works because Chloe is a relationship they built." },
+      { icon: "C", tag: "SECONDARY", tagStyle: "so", title: "Coming-of-age resonance",      desc: "The teen setting, indie soundtrack, authentic bedroom clutter — triggers nostalgia. Players don't observe Max; they project onto her." },
+      { icon: "B", tag: "SECONDARY", tagStyle: "so", title: "Mystery & butterfly effect",   desc: "Rachel Amber's disappearance sustains the thriller thread. The 'what if?' of small choices cascading into large ones satisfies intellectual curiosity." },
+    ],
+    motivationMain: "The rewind mechanic doesn't just serve gameplay — it serves emotional safety. Players who are uncertain about wrong choices in narrative games are given a comfort mechanism. That accessibility unlocks an audience that typically bounces off high-stakes branching games.",
+    whyItWorks: [
+      { bold: "The rewind paradox.",                     text: "The mechanic removes consequence, yet players still feel profound guilt at the end. By episode five, the rewind power feels like a burden, not a tool." },
+      { bold: "Arcadia Bay as a character.",             text: "The Pacific Northwest town has a specific texture — diners, lighthouses, autumn light. Place-specificity creates intimacy players don't find in abstract worlds." },
+      { bold: "Music as narrative infrastructure.",      text: "Specific tracks locked to specific emotional moments become memory triggers. The OST curation is one of the most sophisticated in the medium." },
+      { bold: "Environmental storytelling.",             text: "Max's room, Chloe's room, the school halls — all reward the investigative player with micro-stories. Every poster is authored." },
+      { bold: "Small world, maximum depth.",             text: "Refusing epic scope forces intimacy. Revisiting the same rooms in different emotional states creates resonance that larger worlds can't achieve." },
+    ],
+    whatIDImprove: [
+      { bold: "The final choice is structurally dishonest.",   text: "Five episodes of nuanced, carry-forward decisions reducing to a single binary: save Chloe or save the town. A third path — costly, difficult, earned — was needed." },
+      { bold: "Max is too passive as a protagonist.",         text: "Chloe drives the emotional and narrative momentum of nearly every scene they share. For a game explicitly about player agency, the protagonist should feel more self-motivated." },
+      { bold: "Rewind puzzles are mechanically trivial.",     text: "Most environmental puzzles use rewind as a simple undo button. There's an unexplored design space of puzzles where experiencing both timelines deliberately is the required solution." },
+    ],
+    borrowings: [
+      { title: "Safe experimentation before hard commitment",  desc: "Give players a 'try before you lock in' window for high-stakes decisions — not full rewind, but a consequence that can be walked back once. Reduces decision anxiety." },
+      { title: "Music locked to specific emotional moments",   desc: "Tie specific tracks to specific story beats — authored music that becomes a memory trigger. One of the most cost-effective emotional retention tools in game design." },
+      { title: "Intimate world over epic world",              desc: "6 richly authored locations over 20 shallow ones. Revisiting the same spaces in different emotional states creates resonance no first-time flythrough can deliver." },
+      { title: "The episodic emotional beat as pacing",       desc: "Design to explicit episode-length emotional arcs — each with internal tension, climax, and resolution — rather than one continuous undifferentiated narrative." },
+      { title: "A relationship, not a plot, as emotional spine", desc: "Design the interpersonal relationship first and let the plot serve it. The mystery of Rachel Amber is interesting. Max and Chloe's friendship is what players cry about." },
+    ],
+  },
+
+  /* ── ANALYSIS 3: AOE III — accent: blue ─────────────── */
+  {
+    id: "aoe",
+    title: "Age of Empires III",
+    dev: "Ensemble Studios · Microsoft · PC · 2005",
+    tags: ["Real-Time Strategy","Home City Meta-Progression","Colonial Era","8 Base Civilizations"],
+    accent: "blue",
+    thumb: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&q=65",
+    banner: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&q=75",
+    coreLoopDesc: "AoE III runs two parallel loops that feed each other — a session loop of gather/build/fight, and a meta loop of Home City progression that persists across games. This dual-layer structure is the game's most significant design innovation over its predecessors.",
+    coreLoopFlow: [
+      { step: "Gather resources", sub: "food / wood / coin" },
+      { step: "Build & train",    sub: "structures + units" },
+      { step: "Age up",           sub: "choose politician" },
+      { step: "Call shipment",    sub: "Home City card" },
+      { step: "Military action",  sub: "expand or attack" },
+    ],
+    loopTypes: [
+      { label: "SESSION LOOP",      text: "Gather → Build → Fight → Age up. Each match is a complete arc with 5 distinct phase transitions." },
+      { label: "HOME CITY META",    text: "XP earned → City levels up → New cards unlocked. Persistent across all sessions. Makes every match contribute to something permanent." },
+      { label: "SHIPMENT LOOP",     text: "Generate XP → Call card → Receive units/resources. Creates tempo swings that feel earned rather than random." },
+      { label: "AGE ADVANCEMENT",   text: "Discovery → Colonial → Fortress → Industrial → Imperial. Each age changes the game's emotional texture, not just its power level." },
+    ],
+    coreLoopNote: "The Home City turns a pure RTS into a hybrid with RPG-style meta progression. Players who have invested more hours have a meaningfully richer card deck — rewarding long-term commitment with a visible, in-game advantage.",
+    motivations: [
+      { icon: "C", tag: "PRIMARY",   tagStyle: "p", title: "Civilization identity & power fantasy", desc: "Playing as British cavalry or Ottoman Janissaries is a historical power fantasy. Players feel they're commanding a real empire with real historical weight." },
+      { icon: "A", tag: "PRIMARY",   tagStyle: "p", title: "Age advancement as pacing milestone",   desc: "Reaching Fortress Age mid-battle is a visceral moment — the game's tempo shifts, new units arrive, the power curve bends visibly in your favor." },
+      { icon: "H", tag: "SECONDARY", tagStyle: "s", title: "Home City as long-term identity",       desc: "Your Home City is named, customized, and grows over time. Veteran players have deeper, more powerful decks — visible proof of invested hours." },
+      { icon: "S", tag: "SECONDARY", tagStyle: "s", title: "Strategic mastery ceiling",             desc: "Deck building, opening strategies, age-up timing, unit counters — AoE III has a high enough skill ceiling that players can spend years improving." },
+    ],
+    motivationMain: "The defining motivation of AoE III over its predecessors is investment. Players don't just play a match — they contribute to a persistent identity. The Home City transforms every game from a disposable session into a meaningful chapter in a longer story of empire-building.",
+    whyItWorks: [
+      { bold: "The Home City is an RPG inside an RTS.",            text: "Meta-progression between sessions solved a core problem of the genre: sessions feel disposable because your work disappears. The Home City makes every match contribute to something permanent." },
+      { bold: "Age advancement creates natural drama arcs.",       text: "Discovery Age has one emotional texture, Fortress another, Imperial another entirely. The game has a dramatic structure baked into its progression system, not its narrative." },
+      { bold: "The politician system adds meaningful variation.",  text: "Choosing which politician to use for each advancement is a low-cost decision with visible consequence — different units or resources arrive depending on who you pick." },
+      { bold: "Civilizations are genuinely asymmetric.",          text: "The Ottoman's free Villager stream, the Dutch's bank system, the Japanese's shrine mechanic — each civ rewires fundamental resource logic." },
+      { bold: "Shipment cards create tempo swings that feel earned.", text: "Calling in Musketeers or a resource wagon at the right moment produces a dramatic reversal that feels like a planned move — players remember and retell these moments." },
+    ],
+    whatIDImprove: [
+      { bold: "Home City progression breaks competitive balance at high level.", text: "A veteran with a fully-stocked deck has access to cards a new player doesn't. Separating ranked play into a standardised deck format would preserve both design goals." },
+      { bold: "The campaign fails to teach the game's strategic depth.",         text: "Missions are completable without understanding deck management or age-up timing — the skills that define mastery. A progressive skills tutorial would reduce the cliff into multiplayer." },
+      { bold: "Late-game becomes a production race.",                            text: "Once both players reach Imperial Age and max production, most strategic decision-making is already settled. Territorial control objectives would keep decision density high." },
+      { bold: "Native alliance system is underexploited.",                      text: "Trading Posts on Native settlements are situationally useful but rarely central to a game plan. The system deserves more strategic weight — alliance tiers that unlock over time." },
+    ],
+    borrowings: [
+      { title: "Meta-progression that outlives a single session",    desc: "Design a persistent layer that accumulates between sessions — a named record, a growing deck, a visible history. Today's session contributing to something bigger is a powerful retention mechanism." },
+      { title: "Age advancement as built-in dramatic structure",     desc: "Design phase transitions that change the game's emotional texture — not just unlock new content, but shift the rhythm, the visual language, and the sound of the game." },
+      { title: "Asymmetric factions that rewire fundamental mechanics", desc: "Each faction should change a core system, not just surface stats. Asymmetry at the systems level creates factions that feel genuinely different, not just numerically different." },
+      { title: "The 'tempo swing' moment as a design target",        desc: "Explicitly design for dramatic reversal moments — mechanics that allow a skilled, attentive player to execute a planned comeback that feels decisive. These are the stories people tell about your game." },
+      { title: "Map-reading as a skill layer above build-order",     desc: "Design map features that reward adaptive reading over memorised scripts — authored variation that requires genuine in-the-moment decisions." },
+    ],
+  },
+
+  /* ── ANALYSIS 4: MAPLESTORY — accent: orange ─────────── */
+  {
+    id: "maple",
+    title: "MapleStory",
+    dev: "Wizet / Nexon · 2003 · PC · Focus: Classic World (Pre-Big Bang era)",
+    tags: ["2D Side-scrolling MMORPG","Grind-based Progression","Social / Party Play","Free-to-play"],
+    accent: "orange",
+    thumb: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=200&q=65",
+    banner: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1000&q=75",
+    coreLoopDesc: "Classic MapleStory's loop is deceptively simple on the surface — and extraordinarily deep in how it layers obligation, social pressure, and incremental reward into an almost frictionless grind engine.",
+    coreLoopFlow: [
+      { step: "Enter map",        sub: "choose grind spot" },
+      { step: "Kill mobs",        sub: "EXP + meso + drops" },
+      { step: "Level up",         sub: "stat + skill point" },
+      { step: "Unlock content",   sub: "maps / quests" },
+      { step: "Stronger grind",   sub: "repeat at higher tier" },
+    ],
+    loopTypes: [
+      { label: "MICRO LOOP (~5–30 min)",  text: "Enter a map, kill mobs, collect drops, return to town. The satisfying click of loot and EXP bars defines the tactile rhythm of every session." },
+      { label: "MESO LOOP (days–weeks)",  text: "Job advancement: level thresholds unlock 1st→2nd→3rd→4th job. Each advancement dramatically changes the character — these are the emotional milestones." },
+      { label: "MACRO LOOP (months)",     text: "Server identity: leaderboards, guild rankings, boss clears. Social status in the world is the longest-duration loop — it never fully resolves." },
+      { label: "ECONOMIC LOOP (parallel)",text: "Rare drops → Free Market → meso → gear upgrades. A second game running inside the first." },
+    ],
+    coreLoopNote: "The deepest motivation in Classic Maple is the desire to belong to a world — not to complete it. The game has no ending. Players aren't progressing toward a finish line; they're deepening their place in a living social ecosystem.",
+    motivations: [
+      { icon: "C", tag: "PRIMARY",   tagStyle: "po", title: "Class identity as self-expression", desc: "Choosing a class is a commitment — you live with that identity for hundreds of hours. Players don't just play a Thief; they are a Thief in this world." },
+      { icon: "E", tag: "PRIMARY",   tagStyle: "po", title: "EXP bar as a hypnotic contract",    desc: "A visible progress bar that moves — even by 0.01% — after every kill creates one of the most powerful variable reward loops ever designed." },
+      { icon: "S", tag: "SECONDARY", tagStyle: "so", title: "Social belonging",                   desc: "Party quests, guild chat, the Free Market as a social hub — Classic Maple is a social game wearing an RPG costume. Players log in to see their friends as much as to progress." },
+      { icon: "R", tag: "SECONDARY", tagStyle: "so", title: "Rare drop as lottery ticket",        desc: "Every mob kill has a small chance of a rare drop. This lottery mechanic runs beneath every grind session, making the 1,000th Slime kill feel different from the 999th." },
+    ],
+    motivationMain: "The deepest motivation in Classic Maple is the desire to belong to a world — not to complete it. Players aren't progressing toward a finish line; they're deepening their place in a living social ecosystem.",
+    whyItWorks: [
+      { bold: "The grind is honest.",                    text: "Classic Maple never pretends progress comes easily. The slowness is the point — it makes every level feel earned and creates a shared culture of respect between players." },
+      { bold: "2D side-scrolling is a design masterstroke.", text: "Maple's 2D maps are readable, intimate, and memorable. You know Kerning City. You remember Ant Tunnel. Spatial simplicity creates deeper place attachment than any open 3D world." },
+      { bold: "Party quests create mandatory social contact.", text: "Ludibrium PQ, Kerning PQ — these require strangers to cooperate and trust each other. Some of the strongest friendships in gaming were formed in a Maple party queue." },
+      { bold: "Free Market as a player-driven economy.",   text: "The FM is not a system NPC — it's a player-run marketplace with real supply/demand dynamics. Players who understood the economy could generate wealth faster than pure grinders." },
+      { bold: "Low barrier to entry, infinite depth ceiling.", text: "You can start in minutes and be functional as a beginner. But mastering class mechanics, the economy, boss rotations, and party dynamics takes years." },
+    ],
+    whatIDImprove: [
+      { bold: "Grind monotony without meaningful variation.",    text: "After the initial learning curve flattens, the session loop becomes purely mechanical. Minor procedural events or rare mob behaviors would sustain engagement without changing the fundamental loop." },
+      { bold: "The quest system is vestigial.",                  text: "Classic Maple's quests are almost universally inferior to straight grinding in EXP-per-hour terms. If quests offered non-EXP rewards — cosmetics, lore unlocks — they would serve as genuine alternative content." },
+      { bold: "Solo play is punished, not just disadvantaged.", text: "A light asynchronous cooperation system — shared map buffs, guild mission boards that don't require simultaneous presence — would extend the social design to players who can't commit to synchronous schedules." },
+      { bold: "Drop rate RNG creates 200-hour dry streaks.",    text: "A hidden backend pity mechanic — non-telegraphed — that slightly increases rare drop probability after long dry streaks would preserve excitement while reducing the demoralising sessions that drive churn." },
+    ],
+    borrowings: [
+      { title: "A visible progress bar that never lies",     desc: "Include a visible progress indicator that moves — measurably — after every meaningful action. Even if the ultimate goal is far away, the movement itself is the reward." },
+      { title: "2D readable spaces over 3D impressive ones", desc: "Choose depth and authored personality of a small 2D space over the visual ambition of a large 3D one. Players remember Henesys. They forget most open-world zones." },
+      { title: "Class as identity, not just mechanical role", desc: "Ensure each class carries social meaning and aesthetic identity beyond its mechanical function. The Thief is cool. The Magician is mysterious. These aren't stat packages — they're personas." },
+      { title: "Mandatory social contact built into content", desc: "Design at least one content category that structurally requires strangers to coordinate — not as a tutorial, but as a recurring pillar." },
+      { title: "A player-run economy as a second game",      desc: "Design the in-game economy as a first-class feature. A good player economy extends playtime for players who have exhausted primary content." },
+    ],
+  },
+
+]; // end ANALYSES
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 5 — RESUME DATA
+────────────────────────────────────────────────────────── */
+const RESUME = {
+
+  /* CERTIFICATIONS
+     certImgSrc: đường dẫn tới file certificate, vd "images/cert1.jpg"
+     Để trống = hiện nút "Attach Certificate" (placeholder)
+     Điền đường dẫn = hiện nút "View Certificate" mở modal xem ảnh */
+  certs: [
+    {
+      title:      "Introduction to Game Design",
+      org:        "Epic Games — Coursera",
+      issued:     "2025",
+      /*certImgSrc: "",   // thay bằng "images/cert_calarts.jpg" khi có file*/
+    },
+    {
+      title:      "Fundamentals of Level Design with Unreal Engine",
+      org:        "Epic Games — Coursera",
+      issued:     "2025",
+      /*certImgSrc: "",   // thay bằng "images/cert_msu.jpg" khi có file*/
+    },
+  ],
+
+  /* BACKGROUND — thứ tự: Self Study → Designer POD → Logistics */
+  background: [
+    {
+      dotColor: "blue",  // "orange" hoặc "blue"
+      title:    "Self-Study — Game Design",
+      meta:     "Independent · 2023 – Present",
+      desc:     "Completed two Coursera game design certifications. Built personal game projects: The Slices (narrative thriller), Empire (political strategy), Farm (simulation hybrid). Applied knowledge across systems design, GDD writing, and game analysis.",
+    },
+    {
+      dotColor: "orange",
+      title:    "Visual Designer — Print on Demand",
+      meta:     "Freelance / Agency · 2021 – Present",
+      desc:     "Designed product visuals and brand assets for e-commerce businesses.",
+    },
+    {
+      dotColor: "orange",
+      title:    "Logistics Coordinator",
+      meta:     "Previous Career · Before 2021",
+      desc:     "Operations and supply-chain coordination. Developed analytical problem-solving and process optimization skills — now applied to game economy and progression system design.",
+    },
+  ],
+
+  /* SKILLS — 3 columns: Game Design + Art & Visual + Technical */
+  skills: [
+    {
+      title: "Game Design",
+      tags:  ["Level Design","GDD Writing","Game Analysis","Prototyping"],
+    },
+    {
+      title: "Art & Visual",
+      tags:  ["2D Concept Art","Character Design"],
+    },
+    {
+      title: "Tools & Technical",
+      tags:  ["Unity (Beginner)","Unreal Engine Blueprint (Beginner)"],
+    },
+  ],
+};
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 6 — CONTACT INFO
+────────────────────────────────────────────────────────── */
+const CONTACT = [
+  {
+    label:      "Email",
+    value:      "your@email.com",    // ← thay email thật
+    href:       "mailto:your@email.com",
+    iconColor:  "var(--blue)",
+    iconShadow: "rgba(18,181,208,.15)",
+    icon:       `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+  },
+  {
+    label:      "Phone",
+    value:      "+84 xxx xxx xxx",   // ← thay số điện thoại thật
+    href:       "tel:+84xxxxxxxxx",
+    iconColor:  "var(--orange)",
+    iconShadow: "rgba(255,140,0,.15)",
+    icon:       `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.97-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+  },
+];
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ███████████████ RENDER ENGINE  █████████
+═══════════════════════════════════════════════════════════════════════ */
+
+/* ── INIT PERSONAL ─────────────────────────────────────── */
+function initPersonal() {
+  document.title = PERSONAL.name + " | Game Designer Portfolio";
+  document.getElementById("logo-name").textContent = PERSONAL.logoName;
+  document.getElementById("home-name").textContent = PERSONAL.name;
+  document.getElementById("home-role").textContent = PERSONAL.role;
+  document.getElementById("home-bio").textContent  = PERSONAL.bio;
+  document.getElementById("resume-summary-text").textContent = PERSONAL.resumeSummary;
+
+  // Avatar
+  if (PERSONAL.avatarSrc) {
+    const av = document.querySelector(".home-avatar");
+    av.innerHTML = `<img src="${PERSONAL.avatarSrc}" alt="${PERSONAL.name}"/>`;
+  } else {
+    document.getElementById("avatar-ph").textContent = PERSONAL.avatarFallback;
+  }
+
+  // Philosophy
+  const pc = document.getElementById("phil-items-container");
+  pc.innerHTML = PHILOSOPHY.map(p => {
+    const col = p.accent === "orange" ? "var(--orange)" : p.accent === "blue" ? "var(--blue)" : "#fff";
+    return `<div class="phil-item"><strong style="color:${col}">${p.bold}</strong> ${p.text}</div>`;
+  }).join("");
+
+  // Contact info sync
+  CONTACT[0].value = PERSONAL.contactEmail;
+  CONTACT[0].href  = "mailto:" + PERSONAL.contactEmail;
+  CONTACT[1].value = PERSONAL.contactPhone;
+  CONTACT[1].href  = "tel:" + PERSONAL.contactPhone.replace(/\s/g,"");
+}
+
+/* ── HOME CARDS ─────────────────────────────────────────── */
+function initHomeCards() {
+  // Projects
+  document.getElementById("home-proj-grid").innerHTML = PROJECTS.map(p => `
+    <div class="pc" onclick="go('projects',${PROJECTS.indexOf(p)})">
+      <div class="pc-img"><img src="${p.thumb}" alt="${p.title}"/></div>
+      <div class="pc-body">
+        <div class="pc-tags">
+          <span class="badge b-muted">${p.engine}</span>
+          <span class="badge b-o">${p.role}</span>
+        </div>
+        <div class="pc-title">${p.title}</div>
+        <p class="pc-desc">${p.overview.slice(0,110)}…</p>
+        <div class="pc-meta" style="color:rgba(255,140,0,.65)">${p.genre}</div>
+      </div>
+    </div>`).join("");
+
+  // Analyses
+  document.getElementById("home-ana-grid").innerHTML = ANALYSES.map(a => `
+    <div class="pc" onclick="go('analysis',${ANALYSES.indexOf(a)})">
+      <div class="pc-img"><img src="${a.thumb}" alt="${a.title}"/></div>
+      <div class="pc-body">
+        <div class="pc-tags"><span class="badge b-blue">${a.title.split(":")[0].trim()}</span></div>
+        <div class="pc-title">${a.title}</div>
+        <p class="pc-desc">${a.coreLoopDesc.slice(0,100)}…</p>
+        
+      </div>
+    </div>`).join("");
+}
+
+/* ── PROJECTS SPLIT VIEW ────────────────────────────────── */
+let projBuilt = false;
+function buildProjects(selectIdx = 0) {
+  const sb = document.getElementById("proj-sb");
+  const ct = document.getElementById("proj-ct");
+  if (!projBuilt) {
+    sb.innerHTML = PROJECTS.map((p, i) => `
+      <div class="sb-item${i===selectIdx?" sb-o":""}" id="psb-${i}" onclick="selectProject(${i})">
+        <div class="sb-thumb"><img src="${p.thumb}" alt="${p.title}"/></div>
+        <div class="sb-info">
+          <div class="sb-title">${p.title}</div>
+          <div class="sb-sub">${p.engine} · ${p.role}</div>
+        </div>
+      </div>`).join("");
+    projBuilt = true;
+  }
+  selectProject(selectIdx, ct);
+}
+
+function selectProject(idx, ct) {
+  ct = ct || document.getElementById("proj-ct");
+  document.querySelectorAll("#proj-sb .sb-item").forEach((el,i) => {
+    el.classList.toggle("sb-o", i===idx);
+  });
+  ct.innerHTML = renderProject(PROJECTS[idx]);
+  ct.scrollTop = 0;
+  initSlideshow("proj-slides");
+}
+
+function renderProject(p) {
+  const loopHtml = p.coreLoop.map((s,i) =>
+    (i>0?`<span class="loop-arrow">→</span>`:"") +
+    `<div class="loop-step"><strong>${s.step}</strong><span>${s.sub}</span></div>`
+  ).join("");
+
+  const slidesHtml = p.slides.map(s => {
+    if (s.type === "image")   return `<div class="slide"><img src="${s.url}" alt="${s.cap||""}"/></div>`;
+    if (s.type === "youtube") return `<div class="slide"><iframe src="https://www.youtube.com/embed/${s.url}" allowfullscreen></iframe></div>`;
+    return "";
+  }).join("");
+  const dotsHtml = p.slides.length > 1 ? p.slides.map((_,i) =>
+    `<div class="s-dot${i===0?" on":""}" onclick="slideGo('proj-slides',${i})"></div>`
+  ).join("") : "";
+
+  // Design Rationale
+  let drHtml = "";
+  if (p.hasDesignRationale) {
+    const pillarsHtml = (p.drPillars||[]).map(pl => `
+      <div class="dr-pillar">
+        <div class="dr-pillar-num">${pl.num}</div>
+        <div class="dr-pillar-title">${pl.title}</div>
+        <p>${pl.text}</p>
+      </div>`).join("");
+
+    const decisionsHtml = (p.drDecisions||[]).map(d => `
+      <div class="dr-item">
+        <div class="dr-item-title">${d.title}</div>
+        ${d.quote ? `<div class="dr-quote">"${d.quote}"</div>` : ""}
+        <div class="dr-row"><p>${d.text}</p></div>
+      </div>`).join("");
+
+    drHtml = `
+    <div class="proj-sec">
+      <div class="sec-lbl"><div class="dot-o"></div>DESIGN RATIONALE</div>
+      <div class="dr-wrap">
+        <div class="dr-head" onclick="toggleDR(this)">
+          <div style="flex:1;min-width:0">
+            <div class="dr-headline">${p.drHeadline}</div>
+            <div class="dr-sub">Click to expand — ${p.drDecisions.length} key design decisions + ${p.drPillars.length} design pillars</div>
+          </div>
+          <svg class="dr-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="dr-body">
+          <div class="dr-pillars">${pillarsHtml}</div>
+          <div class="dr-decisions">${decisionsHtml}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // GDD
+  const gddHtml = p.hasGDD ? `
+    <div class="proj-sec">
+      <div class="sec-lbl"><div class="dot-o"></div>DOCUMENTATION</div>
+      <div class="gdd-box">
+        <div><h4>${p.gddLabel}</h4><p>${p.gddDesc}</p></div>
+        <button class="btn btn-o btn-sm" onclick="toast('📄 Opening GDD','Loading design document...')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+      </div>
+    </div>` : "";
+
+  // Reflection
+  const workedHtml = p.workedWell.map(x => `<li><span style="color:var(--green)">✓</span> ${x}</li>`).join("");
+  const didntHtml  = p.didntWork.map(x =>  `<li><span style="color:var(--red)">✗</span> ${x}</li>`).join("");
+  const lessonsHtml = p.lessons.map((l,i) => `
+    <div class="lesson-item">
+      <div class="lesson-num">0${i+1}</div>
+      <div class="lesson-t"><h4>${l.title}</h4><p>${l.desc}</p></div>
+    </div>`).join("");
+
+  // Flowcharts for The Slices only
+  const flowchartHtml = p.id === "slices" ? `
+  <div class="proj-sec">
+    <div class="sec-lbl"><div class="dot-o"></div>GAME FLOW</div>
+    <div class="flowchart-tabs">
+      <button class="fc-tab active" onclick="switchFlowTab(this,'fc-overall')">Overall Game Flow</button>
+      <button class="fc-tab" onclick="switchFlowTab(this,'fc-detail')">Detailed Gameplay Flow</button>
+    </div>
+
+    <!-- Overall Game Flow -->
+    <div class="fc-panel" id="fc-overall">
+      <div class="fc-wrap">
+        <div class="fc-node fc-cutscene">
+          <span class="fc-tag">OPENING CUTSCENE</span>
+          MC at research desk
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node">
+          <span class="fc-tag">SCENE 1</span>
+          Explore room — Basic movement tutorial
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node">
+          <span class="fc-tag">SCENE 2</span>
+          Discover THE SLICES website
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node fc-decision">
+          <span class="fc-tag">SCENE 3</span>
+          Meet friend — decide whether to share info about the website
+        </div>
+        <div class="fc-branch-row">
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-l"></div>
+            <div class="fc-node fc-branch-node">Keep silent</div>
+          </div>
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-r"></div>
+            <div class="fc-node fc-branch-node fc-warn">Share → Friend disappears</div>
+          </div>
+        </div>
+        <div class="fc-merge-arrow"></div>
+        <div class="fc-node">
+          <span class="fc-tag">SCENE 4</span>
+          Mail chain (3 mails, over several in-game days)
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node">
+          <span class="fc-tag">SCENE 5</span>
+          Receive package — Take pill — Vision Sequence
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node">
+          <span class="fc-tag">SCENE 6</span>
+          The Hook — MC calls home (12:00 PM)
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node fc-main">
+          <span class="fc-tag fc-tag-main">SCENE 7 — MAIN LEVEL</span>
+          Find the cat &nbsp;⏱ Timer: 10:00
+        </div>
+        <div class="fc-branch-row">
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-l"></div>
+            <div class="fc-node fc-win">WIN</div>
+          </div>
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-r"></div>
+            <div class="fc-node fc-lose">GAME OVER → Retry</div>
+          </div>
+        </div>
+        <div class="fc-merge-arrow"></div>
+        <div class="fc-node">
+          <span class="fc-tag">SCENE 8</span>
+          Return home — Receive warning postcard
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node fc-cliff">
+          <span class="fc-tag">CLIFFHANGER</span>
+          Fade to black
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Gameplay Flow -->
+    <div class="fc-panel" id="fc-detail" style="display:none">
+      <div class="fc-wrap">
+        <div class="fc-node fc-main">
+          Player arrives in the neighborhood — free to explore
+        </div>
+        <div class="fc-branch-row" style="margin-top:4px">
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-l"></div>
+            <div class="fc-node fc-branch-node">
+              Find the "Lost Cat" flyer<br/>on a pole / tree
+            </div>
+            <div class="fc-arrow-v" style="height:12px"></div>
+            <div class="fc-node fc-branch-node">[Take the Flyer]</div>
+          </div>
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-r"></div>
+            <div class="fc-node fc-branch-node">[Ask a random NPC]</div>
+            <div class="fc-arrow-v" style="height:12px"></div>
+            <div class="fc-node fc-branch-node">May hint about a lady near the park</div>
+          </div>
+        </div>
+        <div class="fc-merge-arrow"></div>
+        <div class="fc-branch-row">
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-l"></div>
+            <div class="fc-node fc-branch-node">
+              Lady at the park
+              <div style="font-size:11px;color:var(--dim);margin-top:4px">↓ receive pate, direction</div>
+              <div style="font-size:11px;color:var(--dim)">↓ cat on the tree — lure 40s</div>
+            </div>
+          </div>
+          <div class="fc-branch-col">
+            <div class="fc-arrow-diag-r"></div>
+            <div class="fc-node fc-branch-node">
+              Find Owner
+              <div style="font-size:11px;color:var(--dim);margin-top:4px">↓ brings him to the cat</div>
+              <div style="font-size:11px;color:var(--dim)">↓ cat jumps down immediately</div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-merge-arrow"></div>
+        <div class="fc-node fc-main">
+          <span class="fc-tag fc-tag-main">CATCH THE CAT</span>
+        </div>
+        <div class="fc-arrow-v"></div>
+        <div class="fc-node fc-win">WIN</div>
+      </div>
+    </div>
+  </div>` : "";
+
+  return `
+  <div class="proj-banner si">
+    <img src="${p.banner}" alt="${p.title}"/>
+    <div class="proj-banner-grad"></div>
+    <div class="proj-banner-inner">
+      <div class="banner-tags">
+        <span class="badge b-muted">${p.engine}</span>
+        <span class="badge b-o">${p.role}</span>
+        <span class="badge b-blue">${p.platform}</span>
+      </div>
+      <h1>${p.title}</h1>
+    </div>
+  </div>
+
+  <div class="proj-sec">
+    <div class="sec-lbl"><div class="dot-o"></div>OVERVIEW</div>
+    <div class="info-2col">
+      <div class="info-box">
+        <div class="info-box-h"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><h3>Overview</h3></div>
+        <p>${p.overview}</p>
+      </div>
+      <div class="info-box">
+        <div class="info-box-h"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><h3>Design Goals</h3></div>
+        <p>${p.designGoals}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-sec">
+    <div class="sec-lbl"><div class="dot-o"></div>GAMEPLAY MEDIA</div>
+    <div class="slideshow" id="proj-slides">
+      <div class="slides" style="transform:translateX(0)">${slidesHtml}</div>
+      ${p.slides.length>1 ? `
+      <button class="slide-prev" onclick="slidePrev('proj-slides')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="slide-next" onclick="slideNext('proj-slides')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="slide-dots">${dotsHtml}</div>
+      <div class="slide-count" id="proj-slides-count">1 / ${p.slides.length}</div>` : ""}
+    </div>
+    ${p.slides[0]?.cap ? `<div class="slide-cap" id="proj-slides-cap">${p.slides[0].cap}</div>` : ""}
+  </div>
+
+  <div class="proj-sec">
+    <div class="sec-lbl"><div class="dot-o"></div>CORE LOOP</div>
+    <div class="loop-bar">
+      <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">Main gameplay loop:</div>
+      <div class="loop-steps">${loopHtml}</div>
+    </div>
+  </div>
+
+  ${flowchartHtml}
+
+  ${drHtml}
+  ${gddHtml}
+
+  <div class="proj-sec">
+    
+    <div class="sec-lbl" style="margin-bottom:12px"><div class="dot-o"></div>WHAT WORKED & WHAT DIDN'T</div>
+    <div class="reflect-2col">
+      <div class="reflect-box rw"><h3><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> What Worked</h3><ul class="r-list">${workedHtml}</ul></div>
+      <div class="reflect-box rf"><h3><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> What Didn't Work</h3><ul class="r-list">${didntHtml}</ul></div>
+    </div>
+    <div class="sec-lbl" style="margin-bottom:12px;margin-top:2px"><div class="dot-b"></div>LESSONS & NEXT STEPS</div>
+    <div class="lessons-box">
+      <h3><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Lessons &amp; Next Steps</h3>
+      ${lessonsHtml}
+    </div>
+  </div>`;
+}
+
+/* ── ANALYSIS SPLIT VIEW ────────────────────────────────── */
+let anaBuilt = false;
+function buildAnalysis(selectIdx = 0) {
+  const sb = document.getElementById("ana-sb");
+  const ct = document.getElementById("ana-ct");
+  if (!anaBuilt) {
+    sb.innerHTML = ANALYSES.map((a, i) => `
+      <div class="sb-item${i===selectIdx?" sb-"+a.accent[0]:""}${i===selectIdx?" sb-"+a.accent:""}" id="asb-${i}" onclick="selectAnalysis(${i})">
+        <div class="sb-thumb"><img src="${a.thumb}" alt="${a.title}"/></div>
+        <div class="sb-info">
+          <div class="sb-title">${a.title}</div>
+          <div class="sb-sub">${a.dev.split("·")[0].trim()}</div>
+        </div>
+      </div>`).join("");
+    anaBuilt = true;
+  }
+  selectAnalysis(selectIdx, ct);
+}
+
+function selectAnalysis(idx, ct) {
+  ct = ct || document.getElementById("ana-ct");
+  document.querySelectorAll("#ana-sb .sb-item").forEach((el, i) => {
+    el.classList.remove("sb-o","sb-b","sb-blue","sb-orange");
+    if (i === idx) el.classList.add(ANALYSES[i].accent === "blue" ? "sb-b" : "sb-o");
+  });
+  ct.innerHTML = renderAnalysis(ANALYSES[idx]);
+  ct.scrollTop = 0;
+}
+
+function renderAnalysis(a) {
+  const ac  = a.accent;
+  const col = ac === "blue" ? "var(--blue)" : "var(--orange)";
+  const lblClass   = ac === "blue" ? "blue-lbl"   : "orange-lbl";
+  const arrowClass = ac === "blue" ? "lf-arrow-b" : "lf-arrow-o";
+  const dotWhy     = ac === "blue" ? "dot-why-b"  : "dot-why-o";
+  const dotImp     = ac === "blue" ? "dot-imp-b"  : "dot-imp-o";
+  const bnumClass  = ac === "blue" ? "borrow-num-b" : "borrow-num-o";
+  const quoteClass = ac === "blue" ? "motiv-quote"  : "motiv-quote-o";
+  const noteClass  = ac === "blue" ? "loop-note"    : "loop-note loop-note-o";
+
+  const tagsHtml   = a.tags.map(t => `<span class="badge b-muted" style="font-size:11px">${t}</span>`).join("");
+  const flowHtml   = a.coreLoopFlow.map((s,i) =>
+    (i>0?`<span class="${arrowClass}">→</span>`:"") +
+    `<div class="lf-step"><strong>${s.step}</strong><span>${s.sub}</span></div>`
+  ).join("");
+  const ltHtml  = a.loopTypes.map(lt => `<div class="lt-box"><div class="lt-lbl">${lt.label}</div><p>${lt.text}</p></div>`).join("");
+  const motivHtml = a.motivations.map(m => {
+    const tStyle = {p:"motiv-tag-p", s:"motiv-tag-s", po:"motiv-tag-po", so:"motiv-tag-so"}[m.tagStyle] || "motiv-tag-s";
+    return `<div class="motiv-card">
+      <h4 class="motiv-title">${m.title}</h4>
+      <div class="motiv-tag ${tStyle}">${m.tag}</div>
+      <p>${m.desc}</p>
+    </div>`;
+  }).join("");
+  const whyHtml     = a.whyItWorks.map(w    => `<li class="why-item"><div class="dot-why ${dotWhy}"></div><p><strong>${w.bold}</strong> ${w.text}</p></li>`).join("");
+  const improveHtml = a.whatIDImprove.map(w  => `<li class="improve-item"><div class="dot-why ${dotImp}"></div><p><strong>${w.bold}</strong> ${w.text}</p></li>`).join("");
+  const borrowHtml  = a.borrowings.map((b,i) => `
+    <li class="borrow-item">
+      <div class="borrow-num ${bnumClass}">0${i+1}</div>
+      <div class="borrow-t"><h4>${b.title}</h4><p>${b.desc}</p></div>
+    </li>`).join("");
+
+  return `
+  <div class="ana-banner si">
+    <img src="${a.banner}" alt="${a.title}"/>
+    <div class="ana-banner-grad"></div>
+    <div class="ana-banner-inner">
+      <p style="color:${col}">GAME ANALYSIS — LEAD DESIGNER PERSPECTIVE</p>
+      <h1>${a.title}</h1>
+    </div>
+  </div>
+  <p style="color:${col};font-size:13px;font-weight:600;margin-bottom:8px">${a.dev}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px">${tagsHtml}</div>
+
+  <div class="ana-sec">
+    <div class="ana-num-lbl ${lblClass}">01 &nbsp;CORE LOOP</div>
+    <h2>Core Loop</h2>
+    <p style="font-size:13.5px;color:var(--dim);line-height:1.7;margin-bottom:12px">${a.coreLoopDesc}</p>
+    <div class="loop-flow">${flowHtml}</div>
+    <div class="loop-types">${ltHtml}</div>
+    <p class="${noteClass}">${a.coreLoopNote}</p>
+  </div>
+
+  <div class="ana-sec">
+    <div class="ana-num-lbl ${lblClass}">02 &nbsp;PLAYER MOTIVATION</div>
+    <h2>Player Motivation</h2>
+    <div class="motiv-grid">${motivHtml}</div>
+    <p class="${quoteClass}">${a.motivationMain}</p>
+  </div>
+
+  <div class="ana-sec">
+    <div class="ana-num-lbl ${lblClass}">03 &nbsp;WHY IT WORKS</div>
+    <h2>Why It Works</h2>
+    <ul class="why-list">${whyHtml}</ul>
+  </div>
+
+  <div class="ana-sec">
+    <div class="ana-num-lbl ${lblClass}">04 &nbsp;WHAT I'D IMPROVE</div>
+    <h2>What I'd Improve</h2>
+    <ul class="improve-list">${improveHtml}</ul>
+  </div>
+
+  <div class="ana-sec">
+    <div class="ana-num-lbl ${lblClass}">05 &nbsp;WHAT I'D BORROW</div>
+    <h2>What I'd Borrow if I were making a game</h2>
+    <ul class="borrow-list">${borrowHtml}</ul>
+  </div>`;
+}
+
+/* ── RESUME RENDER ──────────────────────────────────────── */
+function initResume() {
+  // Certs
+  document.getElementById("cert-grid-container").innerHTML = RESUME.certs.map(c => `
+    <div class="cert-card">
+      <div class="cert-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <h4>${c.title}</h4>
+      <p class="cert-org">${c.org}</p>
+      <div class="cert-issued">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Completed ${c.issued}
+      </div>
+      <div class="cert-attach">
+        ${c.certImgSrc
+          ? `<button class="cert-view-btn" onclick="openCertModal('${c.title}','${c.certImgSrc}')">
+               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+               View Certificate
+             </button>`
+          : `<div class="cert-placeholder">
+               📎 Certificate not yet attached —
+               add image path to <code style="color:var(--orange);font-size:11px">certImgSrc</code> in DATA
+             </div>`
+        }
+      </div>
+    </div>`).join("");
+
+  // Background
+  document.getElementById("bg-timeline-container").innerHTML = RESUME.background.map(b => `
+    <div class="bg-item">
+      <div class="bg-dot bg-dot-${b.dotColor}"></div>
+      <div class="bg-title">${b.title}</div>
+      <div class="bg-meta">${b.meta}</div>
+      <div class="bg-desc">${b.desc}</div>
+    </div>`).join("");
+
+  // Skills
+  document.getElementById("skill-grid-container").innerHTML = RESUME.skills.map(s => `
+    <div class="skill-box">
+      <h3>${s.title}</h3>
+      <div class="stags">${s.tags.map(t => `<span class="stag">${t}</span>`).join("")}</div>
+    </div>`).join("");
+}
+
+/* ── CONTACT RENDER ─────────────────────────────────────── */
+function initContact() {
+  document.getElementById("contact-grid-container").innerHTML = CONTACT.map(c => `
+    <a href="${c.href}" class="contact-card">
+      <div class="c-icon" style="box-shadow:0 4px 16px ${c.iconShadow}">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="${c.iconColor}" stroke-width="2" stroke-linecap="round">
+          ${c.icon.match(/<svg[^>]*>([\s\S]*?)<\/svg>/)?.[1] || ""}
+        </svg>
+      </div>
+      <div class="c-label">${c.label}</div>
+      <div class="c-value">${c.value}</div>
+    </a>`).join("");
+  // Render icon properly
+  document.getElementById("contact-grid-container").innerHTML = CONTACT.map(c => `
+    <a href="${c.href}" class="contact-card">
+      <div class="c-icon" style="box-shadow:0 4px 16px ${c.iconShadow};color:${c.iconColor}">
+        ${c.icon}
+      </div>
+      <div class="c-label">${c.label}</div>
+      <div class="c-value">${c.value}</div>
+    </a>`).join("");
+}
+
+/* ── SLIDESHOW ENGINE ───────────────────────────────────── */
+const _slides = {};
+function initSlideshow(id) {
+  _slides[id] = 0;
+}
+function slideNext(id) {
+  const sw = document.getElementById(id);
+  if (!sw) return;
+  const count = sw.querySelectorAll(".slide").length;
+  _slides[id] = (_slides[id] + 1) % count;
+  _applySlide(id, sw, count);
+}
+function slidePrev(id) {
+  const sw = document.getElementById(id);
+  if (!sw) return;
+  const count = sw.querySelectorAll(".slide").length;
+  _slides[id] = (_slides[id] - 1 + count) % count;
+  _applySlide(id, sw, count);
+}
+function slideGo(id, idx) {
+  const sw = document.getElementById(id);
+  if (!sw) return;
+  const count = sw.querySelectorAll(".slide").length;
+  _slides[id] = idx;
+  _applySlide(id, sw, count);
+}
+function _applySlide(id, sw, count) {
+  const cur  = _slides[id];
+  sw.querySelector(".slides").style.transform = `translateX(-${cur*100}%)`;
+  sw.querySelectorAll(".s-dot").forEach((d,i) => d.classList.toggle("on", i===cur));
+  const cnt = document.getElementById(id+"-count");
+  if (cnt) cnt.textContent = `${cur+1} / ${count}`;
+  // Update caption
+  const cap = document.getElementById(id+"-cap");
+  if (cap) {
+    const projIdx = [...document.querySelectorAll("#proj-sb .sb-item")].findIndex(el => el.classList.contains("sb-o"));
+    if (projIdx >= 0 && PROJECTS[projIdx]?.slides[cur]) {
+      cap.textContent = PROJECTS[projIdx].slides[cur].cap || "";
+    }
+  }
+}
+
+/* ── FLOWCHART TAB SWITCH ────────────────────────────── */
+function switchFlowTab(btn, panelId) {
+  // tabs
+  btn.closest(".flowchart-tabs").querySelectorAll(".fc-tab").forEach(t => t.classList.remove("active"));
+  btn.classList.add("active");
+  // panels
+  const wrap = btn.closest(".proj-sec");
+  wrap.querySelectorAll(".fc-panel").forEach(p => p.style.display = "none");
+  document.getElementById(panelId).style.display = "block";
+}
+
+/* ── DESIGN RATIONALE TOGGLE ────────────────────────────── */
+function toggleDR(header) {
+  const body   = header.nextElementSibling;
+  const chevron = header.querySelector(".dr-chevron");
+  body.classList.toggle("open");
+  chevron.classList.toggle("open");
+}
+
+/* ── CERT MODAL ─────────────────────────────────────────── */
+function openCertModal(title, src) {
+  document.getElementById("cert-modal-title").textContent = title;
+  document.getElementById("cert-modal-img").src = src;
+  document.getElementById("certModal").classList.add("open");
+}
+function closeCertModal(e) {
+  if (!e || e.target === document.getElementById("certModal")) {
+    document.getElementById("certModal").classList.remove("open");
+    document.getElementById("cert-modal-img").src = "";
+  }
+}
+
+/* ── ROUTING ────────────────────────────────────────────── */
+const PAGES = ["home","projects","analysis","resume","contact"];
+function go(page, subIdx) {
+  PAGES.forEach(p => {
+    document.getElementById("pg-"+p).classList.toggle("show", p===page);
+    const nb = document.getElementById("nb-"+p); if (nb) nb.classList.toggle("active", p===page);
+    const mb = document.getElementById("mb-"+p); if (mb) mb.classList.toggle("active", p===page);
+  });
+  window.scrollTo(0,0);
+  if (page === "projects") buildProjects(subIdx || 0);
+  if (page === "analysis") buildAnalysis(subIdx || 0);
+}
+
+/* ── MOBILE MENU ────────────────────────────────────────── */
+function toggleMob() {
+  const m = document.getElementById("mobMenu");
+  const o = document.getElementById("hi-o"); const c = document.getElementById("hi-c");
+  const open = m.classList.toggle("open");
+  o.style.display = open ? "none" : ""; c.style.display = open ? "" : "none";
+}
+function closeMob() {
+  document.getElementById("mobMenu").classList.remove("open");
+  document.getElementById("hi-o").style.display = "";
+  document.getElementById("hi-c").style.display = "none";
+}
+
+/* ── TOAST ──────────────────────────────────────────────── */
+let _tt;
+function toast(title, desc) {
+  document.getElementById("toast-title").textContent = title;
+  document.getElementById("toast-desc").textContent  = desc;
+  const el = document.getElementById("toast");
+  el.style.display = "block";
+  clearTimeout(_tt); _tt = setTimeout(() => el.style.display = "none", 3400);
+}
+
+/* ── INIT ───────────────────────────────────────────────── */
+initPersonal();
+initHomeCards();
+initResume();
+initContact();
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeMob(); closeCertModal(); } });
+</script>
+</body>
+</html>
