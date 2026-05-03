@@ -266,6 +266,7 @@ header {
 .slide     { flex: 0 0 100%; height: 100%; position: relative; }
 .slide img    { width: 100%; height: 100%; object-fit: cover; display: block; }
 .slide iframe { width: 100%; height: 100%; border: none; display: block; }
+.slide video  { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
 .slide-prev, .slide-next {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 34px; height: 34px; border-radius: 50%;
@@ -869,14 +870,14 @@ const PROJECTS = [
     ],
     // SLIDES — thay URL bằng ảnh/video thật của bạn
     slides: [
-      { type: "video", url: "Video/THE SLICES/room.mp4"},
-      { type: "video", url: "Video/THE SLICES/mail.mp4"},
-      { type: "video", url: "Video/THE SLICES/vision.mp4"},
-      { type: "image", url: "Image/THE SLICES/1.webp"},
-      { type: "image", url: "Image/THE SLICES/2.webp"},
-      { type: "image", url: "Image/THE SLICES/3.webp"},
-      { type: "image", url: "Image/THE SLICES/4.webp"},
-      { type: "image", url: "Image/THE SLICES/5.webp"},
+      { type: "video", url: "Video/THE%20SLICES/room.mp4"},
+      { type: "video", url: "Video/THE%20SLICES/mail.mp4"},
+      { type: "video", url: "Video/THE%20SLICES/vision.mp4"},
+      { type: "image", url: "Image/THE%20SLICES/1.webp"},
+      { type: "image", url: "Image/THE%20SLICES/2.webp"},
+      { type: "image", url: "Image/THE%20SLICES/3.webp"},
+      { type: "image", url: "Image/THE%20SLICES/4.webp"},
+      { type: "image", url: "Image/THE%20SLICES/5.webp"},
     ],
     hasGDD: true,    // Có link GDD để download
     gddLabel: "Game Design Document — The Slices",
@@ -1025,7 +1026,7 @@ const PROJECTS = [
       { step: "Return",     sub: "reinvest & repeat" },
     ],
     slides: [
-      { type: "video", url: "Video/FARM/Video Project 4.mp4"},
+      { type: "video", url: "Video/FARM/farm.mp4"},
       { type: "image", url: "Image/FARM/1.webp"},
       { type: "image", url: "Image/FARM/3.webp"},
       { type: "image", url: "Image/FARM/4.webp"},
@@ -1447,9 +1448,9 @@ function selectProject(idx, ct) {
   document.querySelectorAll("#proj-sb .sb-item").forEach((el,i) => {
     el.classList.toggle("sb-o", i===idx);
   });
+  _slides["proj-slides"] = 0;  // reset trước khi render
   ct.innerHTML = renderProject(PROJECTS[idx]);
   ct.scrollTop = 0;
-  _slides["proj-slides"] = 0;
   initSlideshow("proj-slides");
 }
 
@@ -1461,7 +1462,7 @@ function renderProject(p) {
 
   const slidesHtml = p.slides.map(s => {
     if (s.type === "image")   return `<div class="slide"><img src="${s.url}" alt="${s.cap||""}"/></div>`;
-    if (s.type === "video")   return `<div class="slide"><video src="${s.url}" controls style="width:100%;height:100%;object-fit:contain;background:#000"></video></div>`;
+    if (s.type === "video")   return `<div class="slide"><video src="${s.url}" controls></video></div>`;
     if (s.type === "youtube") return `<div class="slide"><iframe src="https://www.youtube.com/embed/${s.url}" allowfullscreen></iframe></div>`;
     return "";
   }).join("");
@@ -1940,6 +1941,8 @@ function slideGo(id, idx) {
 }
 function _applySlide(id, sw, count) {
   const cur  = _slides[id];
+  // Pause all videos in slideshow before switching
+  sw.querySelectorAll("video").forEach(v => v.pause());
   sw.querySelector(".slides").style.transform = `translateX(-${cur*100}%)`;
   sw.querySelectorAll(".s-dot").forEach((d,i) => d.classList.toggle("on", i===cur));
   const cnt = document.getElementById(id+"-count");
