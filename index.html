@@ -721,10 +721,14 @@ header {
           Career Transition — Self-taught Game Designer
         </div>
       </div>
-      <button class="btn btn-o a2 btn-sm" onclick="toast('📄 Downloading Resume','Your PDF download will begin shortly.')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <a href="Resume/Uyen Vu _ Resume.pdf" download class="btn btn-o a2 btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
         Download PDF
-      </button>
+      </a>
     </div>
 
     <!-- Summary -->
@@ -874,6 +878,7 @@ const PROJECTS = [
     hasGDD: true,    // Có link GDD để download
     gddLabel: "Game Design Document — The Slices",
     gddDesc: "Full GDD: narrative design, scene breakdown, mechanic specifications.",
+    gddFile:  "Docx/GDD_THE_SLICES.docx",
 
     // DESIGN RATIONALE — chỉ có ở The Slices
     hasDesignRationale: true,
@@ -978,6 +983,7 @@ const PROJECTS = [
     hasGDD: true,
     gddLabel: "Game Design Document — Empire v0.9",
     gddDesc: "Full GDD: 17 standard events, 3 major events, 4-pillar system, advisor logic, branching structure.",
+    gddFile:  "Docx/GDD_Empire.docx",
 
     hasDesignRationale: false, // Không có DR
 
@@ -1026,6 +1032,7 @@ const PROJECTS = [
     hasGDD: true,
     gddLabel: "Game Design Document — Farm v1.0",
     gddDesc: "Full GDD: scene breakdown, event tile types, economy system, win/lose conditions.",
+    gddFile:  "Docx/GDD_Farm.docx",
 
     hasDesignRationale: false, // Không có DR
 
@@ -1276,13 +1283,13 @@ const RESUME = {
       title:      "Introduction to Game Design",
       org:        "Epic Games — Coursera",
       issued:     "2025",
-      /*certImgSrc: "",   // thay bằng "images/cert_calarts.jpg" khi có file*/
+      certImgSrc: "Certificate/Introduction to Game Design_Certificate.png",
     },
     {
       title:      "Fundamentals of Level Design with Unreal Engine",
       org:        "Epic Games — Coursera",
       issued:     "2025",
-      /*certImgSrc: "",   // thay bằng "images/cert_msu.jpg" khi có file*/
+      certImgSrc: "Certificate/Fundamentals of Level Design with Unreal Engine_Certificate.png",
     },
   ],
 
@@ -1498,10 +1505,10 @@ function renderProject(p) {
       <div class="sec-lbl"><div class="dot-o"></div>DOCUMENTATION</div>
       <div class="gdd-box">
         <div><h4>${p.gddLabel}</h4><p>${p.gddDesc}</p></div>
-        <button class="btn btn-o btn-sm" onclick="toast('📄 Opening GDD','Loading design document...')">
+        <a href="${p.gddFile}" target="_blank" download class="btn btn-o btn-sm">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download PDF
-        </button>
+        </a>
       </div>
     </div>` : "";
 
