@@ -1449,6 +1449,7 @@ function selectProject(idx, ct) {
   });
   ct.innerHTML = renderProject(PROJECTS[idx]);
   ct.scrollTop = 0;
+  _slides["proj-slides"] = 0;
   initSlideshow("proj-slides");
 }
 
@@ -1460,6 +1461,7 @@ function renderProject(p) {
 
   const slidesHtml = p.slides.map(s => {
     if (s.type === "image")   return `<div class="slide"><img src="${s.url}" alt="${s.cap||""}"/></div>`;
+    if (s.type === "video")   return `<div class="slide"><video src="${s.url}" controls style="width:100%;height:100%;object-fit:contain;background:#000"></video></div>`;
     if (s.type === "youtube") return `<div class="slide"><iframe src="https://www.youtube.com/embed/${s.url}" allowfullscreen></iframe></div>`;
     return "";
   }).join("");
