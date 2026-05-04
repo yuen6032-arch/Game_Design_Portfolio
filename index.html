@@ -385,7 +385,7 @@ header {
 .motiv-tag-po { background: rgba(255,140,0,.12); color: var(--orange); }
 .motiv-tag-so { background: rgba(255,255,255,.08); color: var(--dim); }
 .motiv-quote { font-size: 13px; color: var(--dim); line-height: 1.65; border-left: 3px solid var(--blue); padding-left: 12px; margin-top: 10px; font-style: italic; }
-.motiv-quote-o { border-left-color: var(--orange); }
+.motiv-quote-o { font-size: 13px; color: var(--dim); line-height: 1.65; border-left: 3px solid var(--orange); padding-left: 12px; margin-top: 10px; font-style: italic;}
 
 /* Why / Improve lists */
 .why-list, .improve-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
@@ -684,7 +684,7 @@ header {
   <div class="wrap" style="padding-top:24px;padding-bottom:28px">
     <div class="a1" style="margin-bottom:18px">
       <h1 style="font-size:clamp(26px,4vw,40px)">Projects</h1>
-      <p style="color:var(--dim);margin-top:5px;font-size:15px">Game design case studies — from concept through post-mortem.</p>
+      <p style="color:var(--dim);margin-top:5px;font-size:15px">Game design — from concept through post-mortem.</p>
     </div>
     <div class="split-wrap a2">
       <div class="split-sb" id="proj-sb"></div>
@@ -832,7 +832,7 @@ const PHILOSOPHY = [
   {
     accent: "blue",
     bold:   "Player-Centric Systems:",
-    text:   "Mechanics should serve the fantasy, not the other way around."
+    text:   "Mechanics exist to serve the player's experience."
   },
 ];
 
@@ -851,16 +851,16 @@ const PROJECTS = [
     id: "slices",
     title: "The Slices",
     engine: "Unity",
-    role: "Solo Designer",
-    genre: "First-person Mystery / Psychological Thriller",
-    platform: "PC (Windows)",
+    role: "Game Designer",
+    genre: "First-person Mystery / Psychological Thriller / Puzzle",
+    platform: "First-person Mystery / Psychological Thriller / Puzzle",
     scope: "Prototype — Act 1 (~30–45 min)",
     // Thumbnail cho sidebar và home card
     thumb: "Image/THE SLICES/Cover.webp",
     // Banner lớn trong detail view
     banner: "Image/THE SLICES/Cover.webp",
-    overview: "THE SLICES is a first-person mystery / psychological thriller. You play as Main Character — a theoretical physics PhD student who stumbles upon a mysterious website and begins receiving pills that grant glimpses of the future. Prototype covers Act 1 complete: from the opening, the pill mechanic, the first playable scene, to a cliffhanger setup for what follows.",
-    designGoals: "Create a first-person mystery where psychological tension doesn't come from mechanics — it comes from the feeling of knowing too much while controlling too little. Every system serves that tension.",
+    overview: "THE SLICES is a first-person mystery / psychological thriller. You play as Main Character — a theoretical physics PhD student — who stumbles upon a mysterious website and gains the ability to see 'time slices' of the future through pills that arrive in the mail. Prototype covers Act 1 complete: from the opening, the pill mechanic, the first playable scene, to a cliffhanger setup for what follows.",
+    designGoals: "Create a first-person mystery where psychological tension comes from the feeling of knowing too much while controlling too little. Every system serves that tension.",
     coreLoop: [
       { step: "Discover Website",  sub: "opening hook" },
       { step: "Receive Mail",      sub: "build stakes" },
@@ -886,22 +886,22 @@ const PROJECTS = [
 
     // DESIGN RATIONALE — chỉ có ở The Slices
     hasDesignRationale: true,
-    drHeadline: "THE SLICES was designed around one question: if you knew something was going to happen, but couldn't be certain you understood it correctly — would you act? Every mechanic serves that tension.",
+    drHeadline: "THE SLICES was designed around one question: if you knew something was going to happen, but couldn't be certain you understood it correctly — would you act?",
     drPillars: [
       {
         num: "PILLAR 01",
         title: "Information is the scarce resource",
-        text: "Not lives. Not items. The player never runs out of ways to act — only certainty about what to act on. Scarcity of information is what creates dread."
+        text: "The pills - the only resource that the player has to glimpse what's coming before it's too late. Scarcity of information is what creates dread."
       },
       {
         num: "PILLAR 02",
-        title: "No system should announce itself",
-        text: "Every mechanic exists inside the world — notebook, pill box, spatial audio. If the player notices the UI as a UI, something is wrong."
+        title: "Diegetic System",
+        text: "Every mechanic — notebook, pill box, spatial audio — exists inside the game world, not as a system overlay."
       },
       {
         num: "PILLAR 03",
-        title: "Ordinary and extraordinary in the same frame",
-        text: "The thriller only works when the world around MC is completely normal. Contrast is the engine. NPCs discuss mundane things while the player races a timer only they can feel."
+        title: "Contrast is the engine.",
+        text: "The thriller only works when the world around MC is completely normal. Only the player can feel the pressure."
       },
     ],
     drDecisions: [
@@ -919,11 +919,11 @@ const PROJECTS = [
       },
       {
         title: "04 — NPC hint tier system with no explicit guidance",
-        text: "Three levels of NPC information: random passersby (no useful info), Ms. Racheal (partial hint + pate item), and the owner (immediate resolution, emotional payoff). The player is never told this structure exists. Curiosity is rewarded, not required.",
+        text: "Three levels of NPC information: random passersby (no useful info), Ms. Racheal (partial hint + pate item), and the owner (immediate resolution, emotional payoff). The player is never told this structure exists. Curiosity is rewarded.",
       },
       {
         title: "05 — Soft-lock on Mail 3 — the choice that isn't",
-        text: "When the third email asks MC to send their home address, the player can refuse — the mail disappears, the game cannot progress.",
+        text: "When the third email asks MC to send their home address, the player can refuse — but the game cannot progress.",
       },
       {
         title: "06 — Five pills — a resource needed to use wisely",
@@ -941,7 +941,7 @@ const PROJECTS = [
 
     // REFLECTION
     workedWell: [
-      "Diegetic UI creates strong immersion — players feel genuinely 'inside' MC's space",
+      "Diegetic UI creates strong immersion",
       "NPC tier hint system creates natural exploration without feeling guided",
     ],
     didntWork: [
@@ -960,9 +960,9 @@ const PROJECTS = [
     id: "empire",
     title: "Empire",
     engine: "HTML5 / Browser",
-    role: "Solo Designer",
+    role: "Game Designer",
     genre: "Narrative Strategy / Political Decision Game",
-    platform: "Browser (Mobile & Desktop)",
+    platform: "Narrative Strategy / Political Decision Game",
     scope: "Chapter I Prototype — 17 Events + 3 Major Events",
     thumb: "Image/EMPIRE/Cover2.webp",
     banner: "Image/EMPIRE/Cover2.webp",
@@ -992,16 +992,16 @@ const PROJECTS = [
     hasDesignRationale: false, // Không có DR
 
     workedWell: [
-      "Hidden axis system (S/E/N/L) creates meaningful emergent consequences without UI clutter",
+      "The S/E/N/L axis system reflects every choice the player makes — visibly and  transparently",
       "Advisor speeches that reference behavioral patterns make the game feel like it's watching",
-      "MEII branching creates genuine replay value with three distinct narrative paths",
+      "MEIII branching creates genuine replay value with three distinct narrative paths",
     ],
     didntWork: [
       "Precedent Ledger system too opaque — players can't intuit what patterns they're forming",
       "Some standard events feel disconnected from the harbor's central systemic tension",
     ],
     lessons: [
-      { title: "Invisible systems need legible feedback", desc: "Hidden axes are engaging when players can sense their direction from narrative tone — but the signal needs to be consistent enough to be readable." },
+      { title: "Invisible systems need legible feedback", desc: "Axes are engaging when players can sense their direction from narrative tone — but the signal needs to be consistent enough to be readable." },
       { title: "Advisors work best as behavioral mirrors", desc: "The most effective advisor speeches were ones that directly referenced past choices. Generic advice feels cheap; personal reflection feels earned." },
     ],
   },
@@ -1011,9 +1011,9 @@ const PROJECTS = [
     id: "farm",
     title: "Farm",
     engine: "Unity",
-    role: "Solo Designer",
+    role: "Game Designer",
     genre: "Casual Simulation + Board Game Hybrid",
-    platform: "PC (Windows)",
+    platform: "Casual Simulation + Board Game Hybrid",
     scope: "Prototype — 3 scenes, 1 complete loop",
     thumb: "Image/FARM/Cover.webp",
     banner: "Image/FARM/Cover.webp",
@@ -1071,7 +1071,7 @@ const ANALYSES = [
     accent: "blue",  // controls all colors in this analysis
     thumb: "Image/Detroit.webp",
     banner: "Image/Detroit.webp",
-    coreLoopDesc: "The macro loop is repeatable: enter a chapter, absorb the environment, face a moral decision under pressure, then exit to a flowchart that shows every path you didn't take. That flowchart is the heartbeat of the entire design.",
+    coreLoopDesc: "The macro loop is repeatable: enter a chapter, absorb the environment, face a moral decision under pressure, then exit to a flowchart that shows every path you didn't take.",
     coreLoopFlow: [
       { step: "Arrive at scene",       sub: "free exploration" },
       { step: "Gather clues",          sub: "unlock options" },
@@ -1085,9 +1085,9 @@ const ANALYSES = [
       { label: "META LOOP",     text: "Flowchart reveals locked branches — FOMO drives replay across multiple runs" },
       /*{ label: "EMOTIONAL LOOP",text: "Moral ownership per decision — player implicates themselves, not just a character" },*/
     ],
-    coreLoopNote: "At the micro level, exploration gates agency: the more clues you find, the more dialogue options open up. This rewards the curious player without punishing the impatient one. At the meta level, the post-chapter flowchart evokes players's curiosity — one of the most elegant retention mechanics in the genre.",
+    coreLoopNote: "At the micro level, exploration gates agency: the more clues you find, the more dialogue options open up. This rewards the curious player without punishing the impatient one. At the meta level, the post-chapter flowchart evokes players's curiosity.",
     motivations: [
-      { icon: "M", tag: "PRIMARY",   tagStyle: "p", title: "Moral ownership",       desc: "Choices implicate the player personally. \"I chose to shoot\" lands differently than \"the character shot.\"" },
+      { icon: "M", tag: "PRIMARY",   tagStyle: "p", title: "Moral ownership",       desc: "Choices implicate the player personally." },
       { icon: "F", tag: "PRIMARY",   tagStyle: "p", title: "FOMO engine",           desc: "The post-chapter flowchart makes locked branches visible — triggering both completionist and curious players equally." },
       { icon: "C", tag: "SECONDARY", tagStyle: "s", title: "Character attachment",  desc: "Three protagonists (Connor, Kara, Markus) serve three emotional registers. Players champion one above all others." },
       { icon: "P", tag: "SECONDARY", tagStyle: "s", title: "Philosophical pull",    desc: "\"Are androids conscious?\" is a question players want to test, not just observe. The game hands them the tools." },
@@ -1096,20 +1096,17 @@ const ANALYSES = [
     whyItWorks: [
       { bold: "Consequence clarity.",                     text: "Every choice, even small ones, visibly moves the world. Dialogue is noted, characters remember, doors close permanently." },
       { bold: "Short chapters as commitment architecture.", text: "At 15–30 min per chapter, the game invites 'just one more' sessions and dramatically lowers the barrier to replay." },
-      { bold: "Three protagonist tempos.",                 text: "Connor's detective procedural, Kara's survival stealth, and Markus's political uprising move at different emotional speeds — the interweaving prevents fatigue." },
+      { bold: "Three protagonist tempos.",                 text: "Connor's detective procedural, Kara's survival stealth, and Markus's political uprising move at different emotional speeds — the interweaving prevents monotony." },
       { bold: "The flowchart is a UI masterstroke.",       text: "Showing the decision tree after each chapter makes players want to explore every possibilities." },
-      { bold: "No 'correct' moral path.",                  text: "The game refuses to clearly reward the 'good' path. Both pacifism and violence can succeed or fail, creating genuine reflection rather than min-maxing." },
+      { bold: "No 'correct' moral path.",                  text: "The game refuses to clearly reward the 'good' path. Each protagonist carries a different ethical burden. Every choice is valid, every choice has a price." },
     ],
     whatIDImprove: [
-      { bold: "Kara's arc is dramatically thinner than Connor's.",     text: "Connor and Hank's relationship is the best writing in the game. Kara's protection narrative is emotionally competent but mechanically passive — she deserves equivalent agency depth." },
       { bold: "Binary choices dressed as nuanced ones.",               text: "Most pivotal decisions collapse into two poles. A true middle path, occasionally, would elevate the game's credibility around its own moral complexity premise." },
-      { bold: "The mission grading screen is an immersion killer.",    text: "After a devastating chapter, being presented with a percentage score breaks the emotional spell immediately. Consequence should be felt, not graded." },
-      { bold: "The endings compress too fast.",                        text: "Branches that took hours to cultivate resolve in minutes. The tonal shift underserves the emotional investment, particularly for Markus's revolution arc." },
+      { bold: "The game's moral framing is too legible.",              text: "Players rarely face genuine ethical uncertainty . The humans in this game are too obviously wrong. If they had a real, understandable reason to oppose androids, players would actually struggle with their choices instead of breezing through them." },
     ],
     borrowings: [
       { title: "A visual consequence map after each session",    desc: "Show players a visual summary of what choices unlocked and locked — not necessarily a flowchart, but something that converts regret into curiosity." },
       { title: "Multi-protagonist tempo design",                 desc: "Assigning different narrative speeds and mechanical registers to multiple characters controls pacing without sacrificing content density." },
-      { title: "Exploration-gated dialogue options",             desc: "Rewarding observant players with additional response options — not better outcomes, just more informed ones." },
       { title: "Chapter-length sessions as a retention lever",   desc: "Designing in 20–30 min self-contained arcs with clear emotional endpoints serves modern play patterns and lowers commitment cost per session." },
       { title: "No mechanically 'correct' moral path",           desc: "Refusing to reward the 'good' choice mechanically forces players to decide based on values rather than optimisation." },
     ],
@@ -1124,7 +1121,7 @@ const ANALYSES = [
     accent: "orange",
     thumb: "Image/LIS.webp",
     banner: "Image/LIS.webp",
-    coreLoopDesc: "The genius of Life Is Strange is that its core mechanic — time rewind — is also its core design philosophy. Players are never truly punished for curiosity; every action can be undone. But the final commitment cannot. That tension between safety and consequence is the entire game.",
+    coreLoopDesc: "The genius of Life Is Strange is that its core mechanic — time rewind. Players are never truly punished for making mistake; every action can be undone. But the final commitment cannot.",
     coreLoopFlow: [
       { step: "Explore & interact", sub: "observe cause" },
       { step: "Trigger outcome",    sub: "see the effect" },
@@ -1135,47 +1132,44 @@ const ANALYSES = [
       { label: "MICRO LOOP",    text: "Explore → Trigger → Rewind → Commit. Repeated every 3–5 minutes. Safe experimentation, hard commitment." },
       { label: "MACRO LOOP",    text: "Episode → Pivotal choice → Cliffhanger. No rewind at episode boundaries. Commitment is final." },
       { label: "META LOOP",     text: "Butterfly effect across 5 episodes. Earlier decisions surface as consequences in later chapters." },
-      { label: "EMOTIONAL LOOP",text: "Max & Chloe's relationship. Players invest in the duo. The final choice works because Chloe is a relationship, not a character." },
+      /*{ label: "EMOTIONAL LOOP",text: "Max & Chloe's relationship. Players invest in the duo. The final choice hits hard because of everything Max and Chloe have been through together. It's not about saving — it's about what you're willing to lose." },*/
     ],
-    coreLoopNote: "The episodic structure maps elegantly onto the rewind mechanic at a meta level: the episode boundary is the ultimate 'no rewind' moment. Once an episode ends, you're committed — just like Max's power has limits.",
+    coreLoopNote: "When an episode ends, your choices are locked. No rewind. Once you're committed, you can't undo it — even Max's power has its limits.",
     motivations: [
       { icon: "U", tag: "PRIMARY",   tagStyle: "po", title: "The 'undo' fantasy",          desc: "Rewind reduces choice anxiety. The freedom paradoxically makes the final, irreversible choices hit much harder." },
-      { icon: "M", tag: "PRIMARY",   tagStyle: "po", title: "Max & Chloe's relationship",  desc: "The emotional spine of the game. Players invest in the duo, not the mystery. The final choice works because Chloe is a relationship they built." },
-      { icon: "C", tag: "SECONDARY", tagStyle: "so", title: "Coming-of-age resonance",      desc: "The teen setting, indie soundtrack, authentic bedroom clutter — triggers nostalgia. Players don't observe Max; they project onto her." },
-      { icon: "B", tag: "SECONDARY", tagStyle: "so", title: "Mystery & butterfly effect",   desc: "Rachel Amber's disappearance sustains the thriller thread. The 'what if?' of small choices cascading into large ones satisfies intellectual curiosity." },
+      { icon: "M", tag: "PRIMARY",   tagStyle: "po", title: "Max & Chloe's relationship",  desc: "The emotional spine of the game. Players invest in the duo. The final choice hits hard because of everything Max and Chloe have been through together. It's not about saving — it's about what you're willing to lose." },
+      { icon: "C", tag: "SECONDARY", tagStyle: "so", title: "Coming-of-age resonance",      desc: "The teen setting, indie soundtrack, authentic bedroom clutter — triggers nostalgia. Players see themselves in the duo." },
+      { icon: "B", tag: "SECONDARY", tagStyle: "so", title: "Mystery & Curiosity",     desc: "Rachel Amber's disappearance keeps you asking questions. And the rewind mechanic lets you experiment to find the truth. Both feed the curiosity." },
     ],
-    motivationMain: "The rewind mechanic doesn't just serve gameplay — it serves emotional safety. Players who are uncertain about wrong choices in narrative games are given a comfort mechanism. That accessibility unlocks an audience that typically bounces off high-stakes branching games.",
+    motivationMain: "The rewind mechanic doesn't just serve gameplay — it also serves emotional safety. Players who are uncertain about wrong choices in narrative games are given a comfort mechanism. That accessibility unlocks an audience that typically bounces off high-stakes branching games.",
     whyItWorks: [
-      { bold: "The rewind paradox.",                     text: "The mechanic removes consequence, yet players still feel profound guilt at the end. By episode five, the rewind power feels like a burden, not a tool." },
-      { bold: "Arcadia Bay as a character.",             text: "The Pacific Northwest town has a specific texture — diners, lighthouses, autumn light. Place-specificity creates intimacy players don't find in abstract worlds." },
-      { bold: "Music as narrative infrastructure.",      text: "Specific tracks locked to specific emotional moments become memory triggers. The OST curation is one of the most sophisticated in the medium." },
-      { bold: "Environmental storytelling.",             text: "Max's room, Chloe's room, the school halls — all reward the investigative player with micro-stories. Every poster is authored." },
-      { bold: "Small world, maximum depth.",             text: "Refusing epic scope forces intimacy. Revisiting the same rooms in different emotional states creates resonance that larger worlds can't achieve." },
+      { bold: "The rewind paradox.",                     text: "You can undo anything — but by the end, you still feel guilty. That's the trick. The more you rewind, the more you realize some things can't actually be fixed. And everything comes with a price." },
+      { bold: "Music as narrative infrastructure.",      text: "Certain songs play at certain moments — and they become memory triggers. Years later, hearing those songs brings the scene back. The music doesn't just accompany the story; it becomes part of the memory." },
+      { bold: "Environmental storytelling.",             text: "If you bother to look around, every room tells you something. Max's posters, Chloe's walls — nothing is random. The world rewards curious players." },
+      { bold: "Small world, maximum depth.",             text: "The game uses the same locations over and over — but it works. Coming back to the same place when everything has changed hits differently than seeing a brand new place for the first time." },
     ],
     whatIDImprove: [
-      { bold: "The final choice is structurally dishonest.",   text: "Five episodes of nuanced, carry-forward decisions reducing to a single binary: save Chloe or save the town. A third path — costly, difficult, earned — was needed." },
-      { bold: "Max is too passive as a protagonist.",         text: "Chloe drives the emotional and narrative momentum of nearly every scene they share. For a game explicitly about player agency, the protagonist should feel more self-motivated." },
-      { bold: "Rewind puzzles are mechanically trivial.",     text: "Most environmental puzzles use rewind as a simple undo button. There's an unexplored design space of puzzles where experiencing both timelines deliberately is the required solution." },
+      { bold: "Make choices feel more consequential.",   text: "Life is Strange promises that decisions matter, but most paths converge into the same two endings: save Chloe or save the town - regardless of earlier choices. A third path — costly, difficult, earned — was needed. so players feel their choices were genuine tradeoffs, not just illusions of agency." },
+      { bold: "Resolve what you introduce.",         text: "The game sets up compelling threads — the Prescott conspiracy, the origin of Max's powers — but several are dropped or rushed by Episode 5. A tighter narrative scope, where every introduced element is tracked and committed to resolving, would leave players with a more satisfying payoff." },
     ],
     borrowings: [
-      { title: "Safe experimentation before hard commitment",  desc: "Give players a 'try before you lock in' window for high-stakes decisions — not full rewind, but a consequence that can be walked back once. Reduces decision anxiety." },
-      { title: "Music locked to specific emotional moments",   desc: "Tie specific tracks to specific story beats — authored music that becomes a memory trigger. One of the most cost-effective emotional retention tools in game design." },
-      { title: "Intimate world over epic world",              desc: "6 richly authored locations over 20 shallow ones. Revisiting the same spaces in different emotional states creates resonance no first-time flythrough can deliver." },
-      { title: "The episodic emotional beat as pacing",       desc: "Design to explicit episode-length emotional arcs — each with internal tension, climax, and resolution — rather than one continuous undifferentiated narrative." },
-      { title: "A relationship, not a plot, as emotional spine", desc: "Design the interpersonal relationship first and let the plot serve it. The mystery of Rachel Amber is interesting. Max and Chloe's friendship is what players cry about." },
+      { title: "Safe experimentation before hard commitment",  desc: "Let players preview a choice before it locks in. Not a full undo — just one chance to reconsider. It lowers the fear of choosing wrong without removing the weight of the decision." },
+      { title: "Music locked to specific emotional moments",   desc: "Pick one song for one moment and commit to it. When players hear that song again, they remember exactly how they felt. It's one of the most powerful tools in narrative design." },
+      { title: "The episodic emotional beat as pacing",       desc: "Break the story into clear emotional chapters. Each one should have its own buildup and payoff — so players feel a sense of completion before moving on." },
+      { title: "A relationship, not a plot, as emotional spine", desc: "Build the relationship first, then build the plot around it. The mystery of Rachel Amber is what brings Max and Chloe together — but their bond is what makes you stay." },
     ],
   },
 
   /* ── ANALYSIS 3: AOE III — accent: blue ─────────────── */
   {
     id: "aoe",
-    title: "Age of Empires III",
-    dev: "Ensemble Studios · Microsoft · PC · 2005",
-    tags: ["Real-Time Strategy","Home City Meta-Progression","Colonial Era","8 Base Civilizations"],
+    title: "Age of Empires III: Definitive Edition",
+    dev: "Tantalus Media / Forgotten Empires · Xbox Game Studios · PC · 2020",
+    tags: ["Real-Time Strategy","Age Advancement System","Colonial Era (1500–1850)","22 civilizations"],
     accent: "blue",
     thumb: "Image/AoE.webp",
     banner: "Image/AoE.webp",
-    coreLoopDesc: "AoE III runs two parallel loops that feed each other — a session loop of gather/build/fight, and a meta loop of Home City progression that persists across games. This dual-layer structure is the game's most significant design innovation over its predecessors.",
+    coreLoopDesc: "The Definitive Edition preserves the original's dual-loop structure — session loop and Home City loop — but makes a critical design shift: all cards are unlocked from the start, replacing the original's meta-progression grind. This levels the playing field but fundamentally changes what the Home City means to the player.",
     coreLoopFlow: [
       { step: "Gather resources", sub: "food / wood / coin" },
       { step: "Build & train",    sub: "structures + units" },
@@ -1185,35 +1179,31 @@ const ANALYSES = [
     ],
     loopTypes: [
       { label: "SESSION LOOP",      text: "Gather → Build → Fight → Age up. Each match is a complete arc with 5 distinct phase transitions." },
-      { label: "HOME CITY META",    text: "XP earned → City levels up → New cards unlocked. Persistent across all sessions. Makes every match contribute to something permanent." },
+      { label: "HOME CITY",    text: "All cards unlocked from start. Deck-building is now purely strategic — no hours of grinding required before competitive play." },
       { label: "SHIPMENT LOOP",     text: "Generate XP → Call card → Receive units/resources. Creates tempo swings that feel earned rather than random." },
       { label: "AGE ADVANCEMENT",   text: "Discovery → Colonial → Fortress → Industrial → Imperial. Each age changes the game's emotional texture, not just its power level." },
     ],
-    coreLoopNote: "The Home City turns a pure RTS into a hybrid with RPG-style meta progression. Players who have invested more hours have a meaningfully richer card deck — rewarding long-term commitment with a visible, in-game advantage.",
+    coreLoopNote: "Removing the card-unlock meta-progression makes the Home City a pure deckbuilding tool rather than an RPG reward layer. The session experience is preserved; the long-term investment arc is not.",
     motivations: [
-      { icon: "C", tag: "PRIMARY",   tagStyle: "p", title: "Civilization identity & power fantasy", desc: "Playing as British cavalry or Ottoman Janissaries is a historical power fantasy. Players feel they're commanding a real empire with real historical weight." },
-      { icon: "A", tag: "PRIMARY",   tagStyle: "p", title: "Age advancement as pacing milestone",   desc: "Reaching Fortress Age mid-battle is a visceral moment — the game's tempo shifts, new units arrive, the power curve bends visibly in your favor." },
-      { icon: "H", tag: "SECONDARY", tagStyle: "s", title: "Home City as long-term identity",       desc: "Your Home City is named, customized, and grows over time. Veteran players have deeper, more powerful decks — visible proof of invested hours." },
-      { icon: "S", tag: "SECONDARY", tagStyle: "s", title: "Strategic mastery ceiling",             desc: "Deck building, opening strategies, age-up timing, unit counters — AoE III has a high enough skill ceiling that players can spend years improving." },
+      { icon: "C", tag: "PRIMARY",   tagStyle: "p", title: "Civilization identity & power fantasy", desc: "Playing as British cavalry or Ottoman Janissaries is a historical power fantasy. 22 civilizations — each with asymmetric mechanics — deepens this identity." },
+      { icon: "A", tag: "PRIMARY",   tagStyle: "p", title: "Age advancement as pacing milestone",   desc: "Reaching Fortress Age mid-battle is a visceral moment — the game's tempo shifts, new units arrive, the power curve bends visibly in the player's favor." },
+      { icon: "H", tag: "SECONDARY", tagStyle: "s", title: "Deck mastery as skill expression",       desc: "All cards unlocked means mastery now lives in deck construction and execution, not in hours grinded. Skilled players express identity through strategy, not progression." },
+      { icon: "S", tag: "SECONDARY", tagStyle: "s", title: "Structured onboarding & challenge",       desc: "Art of War challenge missions and Historical Battles give new players structured tutorials and veterans curated scenarios with clear benchmarks." },
     ],
-    motivationMain: "The defining motivation of AoE III over its predecessors is investment. Players don't just play a match — they contribute to a persistent identity. The Home City transforms every game from a disposable session into a meaningful chapter in a longer story of empire-building.",
+    motivationMain: "The Definitive Edition shifts the primary motivation from long-term investment to immediate accessibility and strategic mastery. With all cards available from the first game, the hook is no longer 'what will I unlock next' but 'how well can I build and execute a strategy today",
     whyItWorks: [
-      { bold: "The Home City is an RPG inside an RTS.",            text: "Meta-progression between sessions solved a core problem of the genre: sessions feel disposable because your work disappears. The Home City makes every match contribute to something permanent." },
-      { bold: "Age advancement creates natural drama arcs.",       text: "Discovery Age has one emotional texture, Fortress another, Imperial another entirely. The game has a dramatic structure baked into its progression system, not its narrative." },
-      { bold: "The politician system adds meaningful variation.",  text: "Choosing which politician to use for each advancement is a low-cost decision with visible consequence — different units or resources arrive depending on who you pick." },
-      { bold: "Civilizations are genuinely asymmetric.",          text: "The Ottoman's free Villager stream, the Dutch's bank system, the Japanese's shrine mechanic — each civ rewires fundamental resource logic." },
-      { bold: "Shipment cards create tempo swings that feel earned.", text: "Calling in Musketeers or a resource wagon at the right moment produces a dramatic reversal that feels like a planned move — players remember and retell these moments." },
+      { bold: "All-unlocked cards democratise competitive play.",     text: "In the original, veteran players held a structural deck advantage over newcomers. Removing that barrier means any player can build an optimal deck from game one. Multiplayer becomes a test of strategic thinking rather than time invested." },
+      { bold: "22 civilizations create genuine asymmetry at scale.",       text: "From the Ethiopian Ras mechanics to the US Federal States age-up system, new civilizations added post-launch push asymmetric design further than the original ever did. Each civ rewires a different part of the resource or military system." },
+      { bold: "Historical Battles are self-contained skill showcases.",  text: "Unlike the campaign, Historical Battles drop the player into defined tactical scenarios with clear win conditions and benchmarks. They teach specific skills — flanking, economy management, shipment timing — without requiring the full meta loop." },
     ],
     whatIDImprove: [
-      { bold: "Home City progression breaks competitive balance at high level.", text: "A veteran with a fully-stocked deck has access to cards a new player doesn't. Separating ranked play into a standardised deck format would preserve both design goals." },
-      { bold: "The campaign fails to teach the game's strategic depth.",         text: "Missions are completable without understanding deck management or age-up timing — the skills that define mastery. A progressive skills tutorial would reduce the cliff into multiplayer." },
-      { bold: "Late-game becomes a production race.",                            text: "Once both players reach Imperial Age and max production, most strategic decision-making is already settled. Territorial control objectives would keep decision density high." },
-      { bold: "Native alliance system is underexploited.",                      text: "Trading Posts on Native settlements are situationally useful but rarely central to a game plan. The system deserves more strategic weight — alliance tiers that unlock over time." },
+      { bold: "The campaign still doesn't teach the game.",  text: "Art of War was a meaningful addition, but the main campaign missions remain completable without understanding deck construction or competitive build orders. A campaign redesigned as a progressive tutorial — each mission introducing one new system, culminating in a mission that requires integrating all of them — would dramatically reduce new player drop-off after the campaign ends." },
+      { bold: "Home City customisation lost its meaning.",         text: "Cosmetic customisation of the Home City (building skins, decorations) remains in the Definitive Edition, but without level progression to drive it, few players engage with it. Reattaching cosmetic rewards to a non-competitive progression track — challenges, historical battles completed, civs mastered — would restore the sense of a growing, personalised empire." },
+      { bold: "Unit readability needs more work.",               text: "When a lot of units are fighting at the same time, it's difficult to quickly see what's what — especially when two different civilizations are involved. Giving each unit type a clearer shape and a distinct look per civilization would make battles much easier to follow. A player shouldn't need to pause the game just to figure out what they're up against." },
     ],
     borrowings: [
-      { title: "Meta-progression that outlives a single session",    desc: "Design a persistent layer that accumulates between sessions — a named record, a growing deck, a visible history. Today's session contributing to something bigger is a powerful retention mechanism." },
-      { title: "Age advancement as built-in dramatic structure",     desc: "Design phase transitions that change the game's emotional texture — not just unlock new content, but shift the rhythm, the visual language, and the sound of the game." },
-      { title: "Asymmetric factions that rewire fundamental mechanics", desc: "Each faction should change a core system, not just surface stats. Asymmetry at the systems level creates factions that feel genuinely different, not just numerically different." },
+      { title: "Age advancement as emotional act structure within a sessio",     desc: "Discovery Age has one texture, Fortress another, Imperial another entirely. This gives every match a built-in three-act arc — regardless of the map or matchup. If I were making a session-based strategy game, I would design phase transitions that change not just the available content but the rhythm, sound, and visual language of the game. Players should feel the age change, not just read it.." },
+      { title: "Asymmetric civilizations that rewire fundamental systems", desc: "The US Federal States age-up, the Ethiopian Ras aura, the Maltese healing-on-idle mechanic — each of these doesn't just give a civ different numbers, it changes how a player thinks about a core system. If I were designing factions, each one would change something foundational, not just surface stats. Asymmetry at the systems level creates factions that genuinely feel different to play." },
       { title: "The 'tempo swing' moment as a design target",        desc: "Explicitly design for dramatic reversal moments — mechanics that allow a skilled, attentive player to execute a planned comeback that feels decisive. These are the stories people tell about your game." },
       { title: "Map-reading as a skill layer above build-order",     desc: "Design map features that reward adaptive reading over memorised scripts — authored variation that requires genuine in-the-moment decisions." },
     ],
@@ -1238,11 +1228,11 @@ const ANALYSES = [
     ],
     loopTypes: [
       { label: "MICRO LOOP (~5–30 min)",  text: "Enter a map, kill mobs, collect drops, return to town. The satisfying click of loot and EXP bars defines the tactile rhythm of every session." },
-      { label: "MESO LOOP (days–weeks)",  text: "Job advancement: level thresholds unlock 1st→2nd→3rd→4th job. Each advancement dramatically changes the character — these are the emotional milestones." },
+      { label: "Advancement LOOP",  text: "Job advancement: level thresholds unlock 1st→2nd→3rd→4th job. Each advancement dramatically changes the character — these are the emotional milestones." },
       { label: "MACRO LOOP (months)",     text: "Server identity: leaderboards, guild rankings, boss clears. Social status in the world is the longest-duration loop — it never fully resolves." },
       { label: "ECONOMIC LOOP (parallel)",text: "Rare drops → Free Market → meso → gear upgrades. A second game running inside the first." },
     ],
-    coreLoopNote: "The deepest motivation in Classic Maple is the desire to belong to a world — not to complete it. The game has no ending. Players aren't progressing toward a finish line; they're deepening their place in a living social ecosystem.",
+    coreLoopNote: "Four loops. One game. None of them ever fully resolve — and that's exactly why players keep coming back.",
     motivations: [
       { icon: "C", tag: "PRIMARY",   tagStyle: "po", title: "Class identity as self-expression", desc: "Choosing a class is a commitment — you live with that identity for hundreds of hours. Players don't just play a Thief; they are a Thief in this world." },
       { icon: "E", tag: "PRIMARY",   tagStyle: "po", title: "EXP bar as a hypnotic contract",    desc: "A visible progress bar that moves — even by 0.01% — after every kill creates one of the most powerful variable reward loops ever designed." },
@@ -1251,24 +1241,20 @@ const ANALYSES = [
     ],
     motivationMain: "The deepest motivation in Classic Maple is the desire to belong to a world — not to complete it. Players aren't progressing toward a finish line; they're deepening their place in a living social ecosystem.",
     whyItWorks: [
-      { bold: "The grind is honest.",                    text: "Classic Maple never pretends progress comes easily. The slowness is the point — it makes every level feel earned and creates a shared culture of respect between players." },
-      { bold: "2D side-scrolling is a design masterstroke.", text: "Maple's 2D maps are readable, intimate, and memorable. You know Kerning City. You remember Ant Tunnel. Spatial simplicity creates deeper place attachment than any open 3D world." },
+      { bold: "The grind is honest.",                    text: "MapleStory never hides the fact that progress takes time. Because everyone goes through the same slow climb — it makes every level feel earned and creates a shared culture of respect between players." },
+      { bold: "2D side-scrolling is easier to remember.", text: "Kerning City, Henesys.... — players remember these places years later. A small, flat map with personality sticks in your memory better than a big open world." },
       { bold: "Party quests create mandatory social contact.", text: "Ludibrium PQ, Kerning PQ — these require strangers to cooperate and trust each other. Some of the strongest friendships in gaming were formed in a Maple party queue." },
       { bold: "Free Market as a player-driven economy.",   text: "The FM is not a system NPC — it's a player-run marketplace with real supply/demand dynamics. Players who understood the economy could generate wealth faster than pure grinders." },
-      { bold: "Low barrier to entry, infinite depth ceiling.", text: "You can start in minutes and be functional as a beginner. But mastering class mechanics, the economy, boss rotations, and party dynamics takes years." },
+      { bold: "Easy to start, hard to master.", text: "A new player can jump in and have fun right away. But learning your class properly, timing boss fights, managing the economy, and working with a party — that takes years." },
     ],
     whatIDImprove: [
-      { bold: "Grind monotony without meaningful variation.",    text: "After the initial learning curve flattens, the session loop becomes purely mechanical. Minor procedural events or rare mob behaviors would sustain engagement without changing the fundamental loop." },
-      { bold: "The quest system is vestigial.",                  text: "Classic Maple's quests are almost universally inferior to straight grinding in EXP-per-hour terms. If quests offered non-EXP rewards — cosmetics, lore unlocks — they would serve as genuine alternative content." },
-      { bold: "Solo play is punished, not just disadvantaged.", text: "A light asynchronous cooperation system — shared map buffs, guild mission boards that don't require simultaneous presence — would extend the social design to players who can't commit to synchronous schedules." },
-      { bold: "Drop rate RNG creates 200-hour dry streaks.",    text: "A hidden backend pity mechanic — non-telegraphed — that slightly increases rare drop probability after long dry streaks would preserve excitement while reducing the demoralising sessions that drive churn." },
+      { bold: "Quests are almost irrelevant.",                  text: "In MapleStory, grinding gives more EXP per hour than doing quests. Quests need a reason to exist — cosmetics, lore rewards, or unique items — so players actually want to do them." },
+      { bold: "Rare drops can go 200 hours without showing up.",    text: "That's demoralizing. A hidden system that slowly increases your drop chance the longer you go without a rare item would keep the excitement alive while stopping the worst dry streaks." },
     ],
     borrowings: [
-      { title: "A visible progress bar that never lies",     desc: "Include a visible progress indicator that moves — measurably — after every meaningful action. Even if the ultimate goal is far away, the movement itself is the reward." },
-      { title: "2D readable spaces over 3D impressive ones", desc: "Choose depth and authored personality of a small 2D space over the visual ambition of a large 3D one. Players remember Henesys. They forget most open-world zones." },
-      { title: "Class as identity, not just mechanical role", desc: "Ensure each class carries social meaning and aesthetic identity beyond its mechanical function. The Thief is cool. The Magician is mysterious. These aren't stat packages — they're personas." },
-      { title: "Mandatory social contact built into content", desc: "Design at least one content category that structurally requires strangers to coordinate — not as a tutorial, but as a recurring pillar." },
-      { title: "A player-run economy as a second game",      desc: "Design the in-game economy as a first-class feature. A good player economy extends playtime for players who have exhausted primary content." },
+      { title: "A visible progress bar that never lies",     desc: "Every meaningful action should visibly move something forward. Even if the final goal is far away, players need to see that they made progress today." },
+      { title: "Class as identity, not just a role", desc: "Each class should feel like a character — not just a different stat setup. Players should feel something when they pick a class." },
+      { title: "Content that requires strangers to cooperate", desc: "At least one type of content should structurally need players to work with people they don't know. Not as a tutorial — as a regular, recurring part of the game." },
     ],
   },
 
@@ -1803,7 +1789,7 @@ function renderAnalysis(a) {
     <img src="${a.banner}" alt="${a.title}"/>
     <div class="ana-banner-grad"></div>
     <div class="ana-banner-inner">
-      <p style="color:${col}">GAME ANALYSIS — LEAD DESIGNER PERSPECTIVE</p>
+      <p style="color:${col}">GAME ANALYSIS</p>
       <h1>${a.title}</h1>
     </div>
   </div>
